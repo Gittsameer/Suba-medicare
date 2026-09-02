@@ -5,7 +5,7 @@
     // CONFIGURATION
     // =====================================================
 
-    const API_BASE = "http://localhost:5000/api/admin";
+    const API_BASE = "https://backend-theta-ivory-38.vercel.app/api/admin";
     const token = localStorage.getItem("token");
 
 
