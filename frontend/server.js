@@ -9,12 +9,4 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
-if (require.main === module) {
-    const PORT = 3000;
-
-    app.listen(PORT, () => {
-        console.log(`Frontend running on http://localhost:${PORT}`);
-    });
-}
-
 module.exports = app;
