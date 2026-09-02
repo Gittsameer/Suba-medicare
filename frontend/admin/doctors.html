@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Doctors</title>
+
+    <style>
+        .popup {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .sub-table {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .loading-row,
+        .empty-row,
+        .error-row {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .error-row {
+            color: #ff5050;
+        }
+
+        .doctor-actions button {
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= MENU ================= -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0" class="profile-container">
+
+                        <tr>
+
+                            <td width="30%" style="padding-left:20px">
+
+                                <img
+                                    src="../img/user.png"
+                                    alt="Administrator"
+                                    width="100%"
+                                    style="border-radius:50%"
+                                >
+
+                            </td>
+
+                            <td style="padding:0">
+
+                                <p class="profile-title" id="adminName">
+                                    Administrator
+                                </p>
+
+                                <p class="profile-subtitle" id="adminEmail">
+                                    admin@edoc.com
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn"
+                                >
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <!-- Dashboard -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-dashbord">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Dashboard
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Doctors -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-doctor menu-active menu-icon-doctor-active">
+
+                    <a
+                        href="doctors.html"
+                        class="non-style-link-menu non-style-link-menu-active">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Doctors
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Schedule -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-schedule">
+
+                    <a
+                        href="schedule.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Schedule
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Appointment -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Appointment
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Patients -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-patient">
+
+                    <a
+                        href="patient.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Patients
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= MAIN BODY ================= -->
+
+    <div class="dash-body">
+
+        <table
+            border="0"
+            width="100%"
+            style="
+                border-spacing:0;
+                margin:0;
+                padding:0;
+                margin-top:25px;
+            ">
+
+            <!-- HEADER -->
+
+            <tr>
+
+                <td width="13%">
+
+                    <a href="index.html">
+
+                        <button
+                            class="login-btn btn-primary-soft btn btn-icon-back"
+                            style="
+                                padding-top:11px;
+                                padding-bottom:11px;
+                                margin-left:20px;
+                                width:125px;
+                            ">
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+                <td>
+
+                    <form
+                        id="searchForm"
+                        class="header-search">
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            class="input-text header-searchbar"
+                            placeholder="Search Doctor name or Email"
+                        >
+
+                        <button
+                            type="submit"
+                            class="login-btn btn-primary btn"
+                            style="
+                                padding-left:25px;
+                                padding-right:25px;
+                                padding-top:10px;
+                                padding-bottom:10px;
+                            ">
+
+                            Search
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:#777;
+                            padding:0;
+                            margin:0;
+                            text-align:right;
+                        ">
+
+                        Today's Date
+
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="
+                            padding:0;
+                            margin:0;
+                        ">
+
+                    </p>
+
+                </td>
+
+
+                <td width="10%">
+
+                    <button
+                        class="btn-label"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        ">
+
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%"
+                            alt="Calendar"
+                        >
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- ADD DOCTOR -->
+
+            <tr>
+
+                <td
+                    colspan="2"
+                    style="padding-top:30px;">
+
+                    <p
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:20px;
+                            color:rgb(49,49,49);
+                        ">
+
+                        Add New Doctor
+
+                    </p>
+
+                </td>
+
+
+                <td colspan="2">
+
+                    <a
+                        href="add-new.html"
+                        class="non-style-link">
+
+                        <button
+                            class="login-btn btn-primary btn button-icon"
+                            style="
+                                display:flex;
+                                justify-content:center;
+                                align-items:center;
+                                margin-left:75px;
+                                background-image:url('../img/icons/add.svg');
+                            ">
+
+                            Add New
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- COUNT -->
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="padding-top:10px;">
+
+                    <p
+                        id="doctorCount"
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:18px;
+                            color:rgb(49,49,49);
+                        ">
+
+                        All Doctors (0)
+
+                    </p>
+
+                </td>
+
+            </tr>
+
+
+            <!-- TABLE -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div class="abc scroll">
+
+                            <table
+                                width="93%"
+                                class="sub-table scrolldown"
+                                border="0">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="table-headin">
+                                            Doctor Name
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Email
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Specialties
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Events
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="doctorsBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="4"
+                                            class="loading-row">
+
+                                            Loading doctors...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script src="admin-common.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   API
+   ===================================================== */
+
+const API_BASE =
+    "http://localhost:5000/api/admin";
+
+const token =
+    localStorage.getItem("token");
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+function logoutAdmin() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    window.location.href =
+        "../login.html";
+}
+
+
+if (!token) {
+
+    logoutAdmin();
+
+}
+
+
+/* =====================================================
+   API REQUEST
+   ===================================================== */
+
+async function adminRequest(
+    endpoint,
+    options = {}
+) {
+
+    const headers = {
+        Authorization:
+            "Bearer " + token
+    };
+
+
+    if (options.body) {
+
+        headers["Content-Type"] =
+            "application/json";
+
+    }
+
+
+    const response =
+        await fetch(
+            API_BASE + endpoint,
+            {
+                ...options,
+                headers: {
+                    ...headers,
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    let data = {};
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+
+    }
+
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        logoutAdmin();
+
+        throw new Error(
+            "AUTH_EXPIRED"
+        );
+
+    }
+
+
+    if (!response.ok ||
+        data.success === false) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   TODAY DATE
+   ===================================================== */
+
+function setTodayDate() {
+
+    const element =
+        document.getElementById(
+            "todayDate"
+        );
+
+    if (!element) return;
+
+
+    element.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   LOAD DOCTORS
+   ===================================================== */
+
+async function loadDoctors() {
+
+    const body =
+        document.getElementById(
+            "doctorsBody"
+        );
+
+
+    body.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="4"
+                class="loading-row">
+
+                Loading doctors...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        /*
+         * Expected backend:
+         *
+         * GET /api/admin/doctors
+         *
+         * {
+         *   success: true,
+         *   doctors: [...]
+         * }
+         */
+
+        const data =
+            await adminRequest(
+                "/doctors"
+            );
+
+
+        console.log(
+            "Admin doctors response:",
+            data
+        );
+
+
+        const doctors =
+            Array.isArray(
+                data.doctors
+            )
+                ? data.doctors
+                : [];
+
+
+        document.getElementById(
+            "doctorCount"
+        ).textContent =
+            `All Doctors (${doctors.length})`;
+
+
+        if (!doctors.length) {
+
+            body.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="4"
+                        class="empty-row">
+
+                        No doctors found.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        renderDoctors(
+            doctors
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Doctor loading error:",
+            error
+        );
+
+
+        if (
+            error.message ===
+            "AUTH_EXPIRED"
+        ) {
+
+            return;
+
+        }
+
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    class="error-row">
+
+                    ${escapeHTML(
+                        error.message ||
+                        "Unable to load doctors."
+                    )}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER DOCTORS
+   ===================================================== */
+
+function renderDoctors(doctors) {
+
+    const body =
+        document.getElementById(
+            "doctorsBody"
+        );
+
+
+    body.innerHTML =
+        doctors.map(
+            doctor => {
+
+                const id =
+                    Number(
+                        doctor.docid
+                    );
+
+
+                return `
+
+                    <tr>
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                doctor.docname ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                doctor.docemail ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                doctor.specialty ||
+                                doctor.sname ||
+                                doctor.specialties ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td class="table-data doctor-actions">
+
+                            <button
+                                class="login-btn btn-primary-soft btn"
+                                onclick="viewDoctor(${id})">
+
+                                View
+
+                            </button>
+
+
+                            <button
+                                class="login-btn btn-primary-soft btn"
+                                onclick="deleteDoctor(${id})">
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+let allDoctors = [];
+
+
+function searchDoctors() {
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+            .trim()
+            .toLowerCase();
+
+
+    if (!search) {
+
+        renderDoctors(
+            allDoctors
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        allDoctors.filter(
+            doctor => {
+
+                const name =
+                    String(
+                        doctor.docname || ""
+                    ).toLowerCase();
+
+
+                const email =
+                    String(
+                        doctor.docemail || ""
+                    ).toLowerCase();
+
+
+                return (
+                    name.includes(search) ||
+                    email.includes(search)
+                );
+
+            }
+        );
+
+
+    renderDoctors(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   VIEW DOCTOR
+   ===================================================== */
+
+async function viewDoctor(id) {
+
+    if (!id) return;
+
+
+    try {
+
+        const data =
+            await adminRequest(
+                `/doctors/${id}`
+            );
+
+
+        const doctor =
+            data.doctor || {};
+
+
+        alert(
+            "Doctor: " +
+            (doctor.docname || "-") +
+            "\nEmail: " +
+            (doctor.docemail || "-") +
+            "\nNIC: " +
+            (doctor.docnic || "-") +
+            "\nTelephone: " +
+            (doctor.doctel || "-")
+        );
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE DOCTOR
+   ===================================================== */
+
+async function deleteDoctor(id) {
+
+    if (!id) return;
+
+
+    if (
+        !confirm(
+            "Are you sure you want to delete this doctor?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await adminRequest(
+                `/doctors/${id}`,
+                {
+                    method:"DELETE"
+                }
+            );
+
+
+        alert(
+            data.message ||
+            "Doctor deleted successfully."
+        );
+
+
+        await loadDoctors();
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        setTodayDate();
+
+
+        document
+            .getElementById(
+                "logoutButton"
+            )
+            .addEventListener(
+                "click",
+                logoutAdmin
+            );
+
+
+        document
+            .getElementById(
+                "searchForm"
+            )
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+                    searchDoctors();
+
+                }
+            );
+
+
+        try {
+
+            const data =
+                await adminRequest(
+                    "/doctors"
+                );
+
+
+            allDoctors =
+                Array.isArray(
+                    data.doctors
+                )
+                    ? data.doctors
+                    : [];
+
+
+            document.getElementById(
+                "doctorCount"
+            ).textContent =
+                `All Doctors (${allDoctors.length})`;
+
+
+            renderDoctors(
+                allDoctors
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                error
+            );
+
+
+            if (
+                error.message !==
+                "AUTH_EXPIRED"
+            ) {
+
+                document.getElementById(
+                    "doctorsBody"
+                ).innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="error-row">
+
+                            ${escapeHTML(
+                                error.message
+                            )}
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

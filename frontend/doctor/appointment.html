@@ -1,0 +1,68 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/admin.css"><title>Appointments</title><style></style></head><body><div class="container"><div class="menu"><table class="menu-container" border="0">
+<tr><td style="padding:10px" colspan="2"><table border="0" class="profile-container">
+<tr><td width="30%" style="padding-left:20px"><img src="../img/user.png" alt="" width="100%" style="border-radius:50%"></td>
+<td style="padding:0"><p class="profile-title" id="profileName">Loading...</p><p class="profile-subtitle" id="profileEmail">Loading...</p></td></tr>
+<tr><td colspan="2"><input type="button" value="Log out" id="logoutButton" class="logout-btn btn-primary-soft btn"></td></tr>
+</table></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-dashbord"><a href="index.html" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-appoinment menu-active menu-icon-appoinment-active"><a href="appointment.html" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">My Appointments</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-session"><a href="schedule.html" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-patient"><a href="patient.html" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-settings"><a href="settings.html" class="non-style-link-menu"><div><p class="menu-text">Settings</p></div></a></td></tr></table></div><div class="dash-body" style="margin-top:15px"><table border="0" width="100%" style="border-spacing:0;margin:0;padding:0"><tr><td width="13%"><a href="index.html"><button class="login-btn btn-primary-soft btn btn-icon-back" style="padding:11px;margin-left:20px;width:125px">Back</button></a></td><td><p style="font-size:23px;padding-left:12px;font-weight:600">Appointment Manager</p></td><td width="15%"><p style="font-size:14px;color:#777;text-align:right;margin:0">Today's Date</p><p id="todayDate" class="heading-sub12" style="text-align:right;margin:0"></p></td><td width="10%"><button class="btn-label"><img src="../img/calendar.svg" width="100%"></button></td></tr>
+<tr><td colspan="4"><p id="appointmentCount" class="heading-main12" style="margin-left:45px;font-size:18px">My Appointments (0)</p></td></tr>
+<tr><td colspan="4"><center><table class="filter-container" border="0"><tr><td style="text-align:center">Date:</td><td width="30%"><input type="date" id="filterDate" class="input-text filter-container-items" style="width:95%;margin:0"></td><td width="12%"><button id="filterBtn" class="btn-primary-soft btn button-icon btn-filter" style="padding:15px;width:100%">Filter</button></td><td width="12%"><button id="clearBtn" class="btn-primary-soft btn" style="padding:15px;width:100%">Clear</button></td></tr></table></center></td></tr>
+<tr><td colspan="4"><center><div class="abc scroll"><table width="93%" class="sub-table scrolldown" border="0"><thead><tr><th class="table-headin">Patient Name</th><th class="table-headin">Appointment No.</th><th class="table-headin">Session</th><th class="table-headin">Session Date & Time</th><th class="table-headin">Appointment Date</th><th class="table-headin">Events</th></tr></thead><tbody id="appointmentsBody"><tr><td colspan="6" style="text-align:center">Loading...</td></tr></tbody></table></div></center></td></tr></table></div></div><script>const API_BASE_URL = "http://localhost:5000/api/doctor";
+const token = localStorage.getItem("token");
+
+function logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+    window.location.href="../login.html";
+}
+function authHeaders(json=false){
+    const h={Authorization:"Bearer "+token};
+    if(json) h["Content-Type"]="application/json";
+    return h;
+}
+async function api(path, options={}){
+    const response=await fetch(API_BASE_URL+path,{...options,headers:{...authHeaders(!!options.body),...(options.headers||{})}});
+    let data={};
+    try{data=await response.json();}catch(e){}
+    if(response.status===401||response.status===403){
+        localStorage.removeItem("token");
+        alert(data.message||"Session expired. Please login again.");
+        window.location.href="../login.html";
+        throw new Error("AUTH_EXPIRED");
+    }
+    if(!response.ok||data.success===false) throw new Error(data.message||"Request failed");
+    return data;
+}
+function today(){
+    document.getElementById("todayDate").textContent=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"2-digit",year:"numeric"});
+}
+function fmtDate(v){
+    if(!v)return "N/A"; const d=new Date(v); return isNaN(d)?"N/A":d.toLocaleDateString("en-GB");
+}
+async function loadProfile(){
+    try{
+        const d=await api("/profile");
+        const p=d.doctor||d.user||d.profile||{};
+        document.getElementById("profileName").textContent=p.docname||p.name||"Doctor";
+        document.getElementById("profileEmail").textContent=p.docemail||p.email||"";
+        document.querySelectorAll("[data-doctor-name]").forEach(e=>e.textContent=p.docname||p.name||"Doctor");
+        return p;
+    }catch(e){if(e.message!=="AUTH_EXPIRED"){console.error(e)}}
+}
+document.getElementById("logoutButton")?.addEventListener("click",logout);
+if(!token) window.location.href="../login.html";
+today();
+let appointments=[];
+function renderAppointments(list){
+ document.getElementById("appointmentCount").textContent=`My Appointments (${list.length})`;
+ const b=document.getElementById("appointmentsBody");
+ if(!list.length){b.innerHTML=`<tr><td colspan="6" style="text-align:center">No appointments found</td></tr>`;return}
+ b.innerHTML=list.map(a=>`<tr><td class="table-data">${a.pname||a.patientname||"-"}</td><td class="table-data">${a.apponum??"-"}</td><td class="table-data">${a.title||"-"}</td><td class="table-data">${fmtDate(a.scheduledate)}<br>${a.scheduletime||"-"}</td><td class="table-data">${fmtDate(a.appodate)}</td><td class="table-data">${a.status||"Booked"}</td></tr>`).join("");
+}
+async function init(){await loadProfile();try{const d=await api("/appointments");appointments=d.appointments||[];renderAppointments(appointments)}catch(e){if(e.message!=="AUTH_EXPIRED")document.getElementById("appointmentsBody").innerHTML=`<tr><td colspan="6" style="text-align:center">${e.message}</td></tr>`}}
+document.getElementById("filterBtn").onclick=()=>{const v=document.getElementById("filterDate").value;renderAppointments(v?appointments.filter(a=>String(a.scheduledate||"").slice(0,10)===v):appointments)};
+document.getElementById("clearBtn").onclick=()=>{document.getElementById("filterDate").value="";renderAppointments(appointments)};
+init();</script></body></html>

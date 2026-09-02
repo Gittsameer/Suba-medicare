@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Account Details</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="menu">
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0" class="profile-container">
+                        <tr>
+                            <td width="30%" style="padding-left:20px">
+                                <img src="../img/user.png"
+                                     width="100%"
+                                     style="border-radius:50%">
+                            </td>
+
+                            <td style="padding:0">
+                                <p class="profile-title">Patient</p>
+                                <p class="profile-subtitle">Account</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <a href="../index.html">
+                                    <input type="button"
+                                           value="Log out"
+                                           class="logout-btn btn-primary-soft btn">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+            </tr>
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-home">
+                    <a href="index.html"
+                       class="non-style-link-menu">
+                        <div>
+                            <p class="menu-text">Home</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-doctor">
+                    <a href="doctors.html"
+                       class="non-style-link-menu">
+                        <div>
+                            <p class="menu-text">All Doctors</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-session">
+                    <a href="schedule.html"
+                       class="non-style-link-menu">
+                        <div>
+                            <p class="menu-text">Scheduled Sessions</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-appoinment">
+                    <a href="appointment.html"
+                       class="non-style-link-menu">
+                        <div>
+                            <p class="menu-text">My Bookings</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-settings menu-active menu-icon-settings-active">
+                    <a href="settings.html"
+                       class="non-style-link-menu non-style-link-menu-active">
+                        <div>
+                            <p class="menu-text">Settings</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <div class="dash-body">
+
+        <table border="0" width="100%"
+               style="border-spacing:0;margin:0;padding:0;margin-top:25px;">
+
+            <tr>
+
+                <td width="13%">
+                    <a href="settings.html">
+                        <button class="login-btn btn-primary-soft btn btn-icon-back"
+                                style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px">
+                            Back
+                        </button>
+                    </a>
+                </td>
+
+                <td>
+                    <p style="font-size:23px;padding-left:12px;font-weight:600;">
+                        Account Details
+                    </p>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td colspan="4">
+
+                    <center>
+
+                        <table class="filter-container"
+                               style="border:none;width:70%;"
+                               border="0">
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">Name</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientName" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">Email</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientEmail" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">Address</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientAddress" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">NIC</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientNic" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">Date of Birth</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientDob" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p class="form-label">Mobile</p>
+                                </td>
+
+                                <td>
+                                    <p id="patientTel" class="sub-text">
+                                        Loading...
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "../login.html";
+}
+
+async function loadAccount() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/auth/my-account",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("Account:", data);
+
+        if (!data.success) {
+            alert(data.message);
+            return;
+        }
+
+        const patient = data.patient;
+
+        document.getElementById("patientName").textContent =
+            patient.pname || "Not available";
+
+        document.getElementById("patientEmail").textContent =
+            patient.pemail || "Not available";
+
+        document.getElementById("patientAddress").textContent =
+            patient.paddress || "Not available";
+
+        document.getElementById("patientNic").textContent =
+            patient.pnic || "Not available";
+
+        document.getElementById("patientDob").textContent =
+            patient.pdob || "Not available";
+
+        document.getElementById("patientTel").textContent =
+            patient.ptel || "Not available";
+
+    } catch (error) {
+
+        console.error("Account error:", error);
+
+        alert("Unable to load account details.");
+
+    }
+
+}
+
+loadAccount();
+
+</script>
+
+    <script src="patient-common.js"></script>
+</body>
+</html>

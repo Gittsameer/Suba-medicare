@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Account Details</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= MENU ================= -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0" class="profile-container">
+
+                        <tr>
+
+                            <td width="30%" style="padding-left:20px">
+
+                                <img
+                                    src="../img/user.png"
+                                    width="100%"
+                                    style="border-radius:50%;">
+
+                            </td>
+
+                            <td style="padding:0">
+
+                                <p
+                                    class="profile-title"
+                                    id="profileName">
+                                    Loading...
+                                </p>
+
+                                <p
+                                    class="profile-subtitle"
+                                    id="profileEmail">
+                                    Loading...
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn">
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-dashbord">
+
+                    <a href="index.html"
+                       class="non-style-link-menu">
+
+                        <div>
+                            <p class="menu-text">
+                                Dashboard
+                            </p>
+                        </div>
+
+                    </a>
+
+                </td>
+            </tr>
+
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a href="appointment.html"
+                       class="non-style-link-menu">
+
+                        <div>
+                            <p class="menu-text">
+                                My Appointments
+                            </p>
+                        </div>
+
+                    </a>
+
+                </td>
+            </tr>
+
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-session">
+
+                    <a href="schedule.html"
+                       class="non-style-link-menu">
+
+                        <div>
+                            <p class="menu-text">
+                                My Sessions
+                            </p>
+                        </div>
+
+                    </a>
+
+                </td>
+            </tr>
+
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-patient">
+
+                    <a href="patient.html"
+                       class="non-style-link-menu">
+
+                        <div>
+                            <p class="menu-text">
+                                My Patients
+                            </p>
+                        </div>
+
+                    </a>
+
+                </td>
+            </tr>
+
+
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-settings menu-active menu-icon-settings-active">
+
+                    <a href="settings.html"
+                       class="non-style-link-menu non-style-link-menu-active">
+
+                        <div>
+                            <p class="menu-text">
+                                Settings
+                            </p>
+                        </div>
+
+                    </a>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="dash-body">
+
+        <table
+            border="0"
+            width="100%"
+            style="border-spacing:0;margin:0;padding:0;margin-top:25px;">
+
+            <tr>
+
+                <td width="13%">
+
+                    <a href="settings.html">
+
+                        <button
+                            class="login-btn btn-primary-soft btn btn-icon-back"
+                            style="padding:11px;margin-left:20px;width:125px;">
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <p
+                        style="font-size:23px;padding-left:12px;font-weight:600;">
+
+                        Account Details
+
+                    </p>
+
+                </td>
+
+                <td width="15%">
+
+                    <p
+                        style="font-size:14px;color:#777;text-align:right;margin:0;">
+
+                        Today's Date
+
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="text-align:right;margin:0;">
+
+                    </p>
+
+                </td>
+
+                <td width="10%">
+
+                    <button class="btn-label">
+
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%">
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div
+                            class="filter-container"
+                            style="width:80%;margin-top:30px;padding:30px;">
+
+                            <h2>
+                                Doctor Account
+                            </h2>
+
+                            <br>
+
+                            <table
+                                width="80%"
+                                border="0">
+
+                                <tr>
+                                    <td class="label-td">
+                                        <b>Name:</b>
+                                    </td>
+
+                                    <td
+                                        class="label-td"
+                                        id="doctorName">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label-td">
+                                        <b>Email:</b>
+                                    </td>
+
+                                    <td
+                                        class="label-td"
+                                        id="doctorEmail">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label-td">
+                                        <b>NIC:</b>
+                                    </td>
+
+                                    <td
+                                        class="label-td"
+                                        id="doctorNIC">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label-td">
+                                        <b>Telephone:</b>
+                                    </td>
+
+                                    <td
+                                        class="label-td"
+                                        id="doctorTel">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="label-td">
+                                        <b>Specialty:</b>
+                                    </td>
+
+                                    <td
+                                        class="label-td"
+                                        id="doctorSpecialty">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const API_BASE_URL =
+    "http://localhost:5000/api/doctor";
+
+const token =
+    localStorage.getItem("token");
+
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    window.location.href =
+        "../login.html";
+}
+
+
+async function loadAccount() {
+
+    if (!token) {
+
+        logout();
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE_URL}/profile`,
+            {
+                headers: {
+                    "Authorization":
+                        "Bearer " + token
+                }
+            }
+        );
+
+        const data =
+            await response.json();
+
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            logout();
+            return;
+
+        }
+
+
+        if (!response.ok || !data.success) {
+
+            alert(
+                data.message ||
+                "Unable to load account."
+            );
+
+            return;
+
+        }
+
+
+        const doctor =
+            data.doctor || {};
+
+
+        document.getElementById(
+            "doctorName"
+        ).textContent =
+            doctor.docname || "-";
+
+
+        document.getElementById(
+            "doctorEmail"
+        ).textContent =
+            doctor.docemail || "-";
+
+
+        document.getElementById(
+            "doctorNIC"
+        ).textContent =
+            doctor.docnic || "-";
+
+
+        document.getElementById(
+            "doctorTel"
+        ).textContent =
+            doctor.doctel || "-";
+
+
+        document.getElementById(
+            "doctorSpecialty"
+        ).textContent =
+            doctor.specialty ||
+            doctor.sname ||
+            doctor.specialties ||
+            "-";
+
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            doctor.docname || "Doctor";
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            doctor.docemail || "";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Unable to connect to server."
+        );
+
+    }
+
+}
+
+
+document.getElementById(
+    "logoutButton"
+).addEventListener(
+    "click",
+    logout
+);
+
+
+document.getElementById(
+    "todayDate"
+).textContent =
+    new Date().toLocaleDateString("en-GB");
+
+
+loadAccount();
+
+</script>
+
+</body>
+</html>

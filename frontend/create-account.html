@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/animations.css">  
+    <link rel="stylesheet" href="css/main.css">  
+    <link rel="stylesheet" href="css/signup.css">
+        
+    <title>Create Account</title>
+    <style>
+        .container{
+            animation: transitionIn-X 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <center>
+    <div class="container">
+        <table border="0" style="width: 69%;">
+            <tr>
+                <td colspan="2">
+                    <p class="header-text">Let's Get Started</p>
+                    <p class="sub-text">It's Okey, Now Create User Account.</p>
+                </td>
+            </tr>
+            <tr>
+                <form id="createAccountForm">
+                <td class="label-td" colspan="2">
+                    <label for="newemail" class="form-label">Email: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="email" name="newemail" class="input-text" placeholder="Email Address" required>
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <label for="tele" class="form-label">Mobile Number: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="tel" name="tele" class="input-text"  placeholder="ex: 0712345678" pattern="{1}[0-9]{9}" >
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <label for="newpassword" class="form-label">Create New Password: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="password" name="newpassword" class="input-text" placeholder="New Password" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <label for="cpassword" class="form-label">Conform Password: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="password" name="cpassword" class="input-text" placeholder="Conform Password" required>
+                </td>
+            </tr>
+     
+            <tr>
+                
+                <td colspan="2">
+                    
+
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                    <input type="reset" value="Reset" class="login-btn btn-primary-soft btn" >
+                </td>
+                <td>
+                    <input type="submit" value="Sign Up" class="login-btn btn-primary btn">
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br>
+                    <label for="" class="sub-text" style="font-weight: 280;">Already have an account&#63; </label>
+                    <a href="login.html" class="hover-link1 non-style-link">Login</a>
+                    <br><br><br>
+                </td>
+            </tr>
+
+                    </form>
+            </tr>
+        </table>
+
+    </div>
+</center>
+<script>
+document.getElementById("createAccountForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const savedData = localStorage.getItem("patientDetails");
+
+    console.log("Saved patient data:", savedData);
+
+    if (!savedData) {
+        alert("Patient details not found. Please start registration again.");
+        return;
+    }
+
+    const patientDetails = JSON.parse(savedData);
+
+    const email = document.querySelector('input[name="newemail"]').value.trim();
+    const phone = document.querySelector('input[name="tele"]').value.trim();
+    const password = document.querySelector('input[name="newpassword"]').value;
+    const confirmPassword = document.querySelector('input[name="cpassword"]').value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+
+    const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ...patientDetails,
+            email: email,
+            password: password,
+            phone: phone
+        })
+    });
+
+    const data = await response.json();
+
+    console.log("Backend response:", data);
+
+    if (data.success) {
+        alert("Patient account created successfully!");
+
+        localStorage.removeItem("patientDetails");
+
+        window.location.href = "login.html";
+    } else {
+        alert(data.message);
+    }
+});
+</script>
+
+</body>
+</html>

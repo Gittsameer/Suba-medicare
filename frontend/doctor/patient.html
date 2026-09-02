@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0"><link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/admin.css"><title>Patients</title><style></style></head><body><div class="container"><div class="menu"><table class="menu-container" border="0">
+<tr><td style="padding:10px" colspan="2"><table border="0" class="profile-container">
+<tr><td width="30%" style="padding-left:20px"><img src="../img/user.png" alt="" width="100%" style="border-radius:50%"></td>
+<td style="padding:0"><p class="profile-title" id="profileName">Loading...</p><p class="profile-subtitle" id="profileEmail">Loading...</p></td></tr>
+<tr><td colspan="2"><input type="button" value="Log out" id="logoutButton" class="logout-btn btn-primary-soft btn"></td></tr>
+</table></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-dashbord"><a href="index.html" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-appoinment"><a href="appointment.html" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-session"><a href="schedule.html" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-patient menu-active menu-icon-patient-active"><a href="patient.html" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">My Patients</p></div></a></td></tr><tr class="menu-row"><td class="menu-btn menu-icon-settings"><a href="settings.html" class="non-style-link-menu"><div><p class="menu-text">Settings</p></div></a></td></tr></table></div><div class="dash-body" style="margin-top:15px"><table border="0" width="100%" style="border-spacing:0;margin:0;padding:0"><tr><td width="13%"><a href="index.html"><button class="login-btn btn-primary-soft btn btn-icon-back" style="padding:11px;margin-left:20px;width:125px">Back</button></a></td><td><form id="searchForm" class="header-search"><input type="search" id="search" class="input-text header-searchbar" placeholder="Search patient name, email or NIC"><button class="login-btn btn-primary btn" type="submit" style="padding:10px 25px">Search</button></form></td><td width="15%"><p style="font-size:14px;color:#777;text-align:right;margin:0">Today's Date</p><p id="todayDate" class="heading-sub12" style="text-align:right;margin:0"></p></td><td width="10%"><button class="btn-label"><img src="../img/calendar.svg" width="100%"></button></td></tr>
+<tr><td colspan="4"><p id="patientCount" class="heading-main12" style="margin-left:45px;font-size:18px">My Patients (0)</p></td></tr>
+<tr><td colspan="4"><center><div class="abc scroll"><table width="93%" class="sub-table scrolldown" border="0"><thead><tr><th class="table-headin">Name</th><th class="table-headin">NIC</th><th class="table-headin">Telephone</th><th class="table-headin">Email</th><th class="table-headin">Date of Birth</th></tr></thead><tbody id="patientsBody"><tr><td colspan="5" style="text-align:center">Loading...</td></tr></tbody></table></div></center></td></tr></table></div></div><script>const API_BASE_URL = "http://localhost:5000/api/doctor";
+const token = localStorage.getItem("token");
+
+function logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+    window.location.href="../login.html";
+}
+function authHeaders(json=false){
+    const h={Authorization:"Bearer "+token};
+    if(json) h["Content-Type"]="application/json";
+    return h;
+}
+async function api(path, options={}){
+    const response=await fetch(API_BASE_URL+path,{...options,headers:{...authHeaders(!!options.body),...(options.headers||{})}});
+    let data={};
+    try{data=await response.json();}catch(e){}
+    if(response.status===401||response.status===403){
+        localStorage.removeItem("token");
+        alert(data.message||"Session expired. Please login again.");
+        window.location.href="../login.html";
+        throw new Error("AUTH_EXPIRED");
+    }
+    if(!response.ok||data.success===false) throw new Error(data.message||"Request failed");
+    return data;
+}
+function today(){
+    document.getElementById("todayDate").textContent=new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"2-digit",year:"numeric"});
+}
+function fmtDate(v){
+    if(!v)return "N/A"; const d=new Date(v); return isNaN(d)?"N/A":d.toLocaleDateString("en-GB");
+}
+async function loadProfile(){
+    try{
+        const d=await api("/profile");
+        const p=d.doctor||d.user||d.profile||{};
+        document.getElementById("profileName").textContent=p.docname||p.name||"Doctor";
+        document.getElementById("profileEmail").textContent=p.docemail||p.email||"";
+        document.querySelectorAll("[data-doctor-name]").forEach(e=>e.textContent=p.docname||p.name||"Doctor");
+        return p;
+    }catch(e){if(e.message!=="AUTH_EXPIRED"){console.error(e)}}
+}
+document.getElementById("logoutButton")?.addEventListener("click",logout);
+if(!token) window.location.href="../login.html";
+today();
+let patients=[];
+function renderPatients(list){document.getElementById("patientCount").textContent=`My Patients (${list.length})`;const b=document.getElementById("patientsBody");if(!list.length){b.innerHTML=`<tr><td colspan="5" style="text-align:center">No patients found</td></tr>`;return}b.innerHTML=list.map(p=>`<tr><td class="table-data">${p.pname||"-"}</td><td class="table-data">${p.pnic||"-"}</td><td class="table-data">${p.ptel||"-"}</td><td class="table-data">${p.pemail||"-"}</td><td class="table-data">${fmtDate(p.pdob)}</td></tr>`).join("")}
+async function init(){await loadProfile();try{const d=await api("/patients");patients=d.patients||[];renderPatients(patients)}catch(e){if(e.message!=="AUTH_EXPIRED")document.getElementById("patientsBody").innerHTML=`<tr><td colspan="5" style="text-align:center">${e.message}</td></tr>`}}
+document.getElementById("searchForm").onsubmit=e=>{e.preventDefault();const q=search.value.trim().toLowerCase();renderPatients(q?patients.filter(p=>[p.pname,p.pemail,p.pnic,p.ptel].some(v=>String(v||"").toLowerCase().includes(q))):patients)};init();</script></body></html>

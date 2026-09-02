@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Patients</title>
+
+    <style>
+        .popup {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .sub-table {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .loading-row,
+        .empty-row,
+        .error-row {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .error-row {
+            color: #ff5050;
+        }
+
+        .patient-actions button {
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= MENU ================= -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0" class="profile-container">
+
+                        <tr>
+
+                            <td width="30%" style="padding-left:20px">
+
+                                <img
+                                    src="../img/user.png"
+                                    alt="Administrator"
+                                    width="100%"
+                                    style="border-radius:50%"
+                                >
+
+                            </td>
+
+                            <td style="padding:0">
+
+                                <p class="profile-title" id="adminName">
+                                    Administrator
+                                </p>
+
+                                <p class="profile-subtitle" id="adminEmail">
+                                    admin@edoc.com
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn"
+                                >
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <!-- Dashboard -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-dashbord">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu"
+                    >
+
+                        <div>
+
+                            <p class="menu-text">
+                                Dashboard
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Doctors -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-doctor">
+
+                    <a
+                        href="doctors.html"
+                        class="non-style-link-menu"
+                    >
+
+                        <div>
+
+                            <p class="menu-text">
+                                Doctors
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Schedule -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-schedule">
+
+                    <a
+                        href="schedule.html"
+                        class="non-style-link-menu"
+                    >
+
+                        <div>
+
+                            <p class="menu-text">
+                                Schedule
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Appointment -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu"
+                    >
+
+                        <div>
+
+                            <p class="menu-text">
+                                Appointment
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Patients -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-patient menu-active menu-icon-patient-active">
+
+                    <a
+                        href="patient.html"
+                        class="non-style-link-menu non-style-link-menu-active"
+                    >
+
+                        <div>
+
+                            <p class="menu-text">
+                                Patients
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= MAIN BODY ================= -->
+
+    <div class="dash-body">
+
+        <table
+            border="0"
+            width="100%"
+            style="
+                border-spacing:0;
+                margin:0;
+                padding:0;
+                margin-top:25px;
+            "
+        >
+
+            <!-- HEADER -->
+
+            <tr>
+
+                <td width="13%">
+
+                    <a href="index.html">
+
+                        <button
+                            class="login-btn btn-primary-soft btn btn-icon-back"
+                            style="
+                                padding-top:11px;
+                                padding-bottom:11px;
+                                margin-left:20px;
+                                width:125px;
+                            "
+                        >
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+                <td>
+
+                    <form
+                        id="searchForm"
+                        class="header-search"
+                    >
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            class="input-text header-searchbar"
+                            placeholder="Search Patient name or Email"
+                        >
+
+                        <button
+                            type="submit"
+                            class="login-btn btn-primary btn"
+                            style="
+                                padding-left:25px;
+                                padding-right:25px;
+                                padding-top:10px;
+                                padding-bottom:10px;
+                            "
+                        >
+
+                            Search
+
+                        </button>
+
+                    </form>
+
+                </td>
+
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:#777;
+                            padding:0;
+                            margin:0;
+                            text-align:right;
+                        "
+                    >
+
+                        Today's Date
+
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="
+                            padding:0;
+                            margin:0;
+                        "
+                    ></p>
+
+                </td>
+
+
+                <td width="10%">
+
+                    <button
+                        class="btn-label"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        "
+                    >
+
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%"
+                            alt="Calendar"
+                        >
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- PATIENT COUNT -->
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="padding-top:10px;"
+                >
+
+                    <p
+                        id="patientCount"
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:18px;
+                            color:rgb(49,49,49);
+                        "
+                    >
+
+                        All Patients (0)
+
+                    </p>
+
+                </td>
+
+            </tr>
+
+
+            <!-- PATIENT TABLE -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div class="abc scroll">
+
+                            <table
+                                width="93%"
+                                class="sub-table scrolldown"
+                                style="border-spacing:0;"
+                            >
+
+                                <thead>
+
+                                <tr>
+
+                                    <th class="table-headin">
+                                        Name
+                                    </th>
+
+                                    <th class="table-headin">
+                                        NIC
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Telephone
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Email
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Date of Birth
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Events
+                                    </th>
+
+                                </tr>
+
+                                </thead>
+
+
+                                <tbody id="patientsBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="6"
+                                            class="loading-row"
+                                        >
+
+                                            Loading patients...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script src="admin-common.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   API
+===================================================== */
+
+const API_BASE_URL =
+    "http://localhost:5000/api/admin";
+
+const token =
+    localStorage.getItem("token");
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    window.location.href =
+        "../login.html";
+}
+
+
+if (!token) {
+
+    logout();
+
+}
+
+
+/* =====================================================
+   AUTH HEADERS
+===================================================== */
+
+function authHeaders(json = false) {
+
+    const headers = {
+        Authorization:
+            "Bearer " + token
+    };
+
+    if (json) {
+
+        headers["Content-Type"] =
+            "application/json";
+
+    }
+
+    return headers;
+}
+
+
+/* =====================================================
+   API REQUEST
+===================================================== */
+
+async function api(
+    path,
+    options = {}
+) {
+
+    const response =
+        await fetch(
+            API_BASE_URL + path,
+            {
+                ...options,
+
+                headers: {
+                    ...authHeaders(
+                        !!options.body
+                    ),
+
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    let data = {};
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+
+    }
+
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        alert(
+            data.message ||
+            "Session expired. Please login again."
+        );
+
+        logout();
+
+        throw new Error(
+            "AUTH_EXPIRED"
+        );
+
+    }
+
+
+    if (!response.ok ||
+        data.success === false) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-GB"
+    );
+
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let allPatients = [];
+
+
+/* =====================================================
+   TODAY DATE
+===================================================== */
+
+function setTodayDate() {
+
+    const element =
+        document.getElementById(
+            "todayDate"
+        );
+
+
+    if (!element) return;
+
+
+    element.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day:"2-digit",
+                month:"2-digit",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   LOAD ADMIN PROFILE
+===================================================== */
+
+async function loadProfile() {
+
+    try {
+
+        const data =
+            await api("/profile");
+
+
+        if (
+            data.admin &&
+            data.admin.aemail
+        ) {
+
+            const email =
+                data.admin.aemail;
+
+
+            const name =
+                email.split("@")[0];
+
+
+            const nameElement =
+                document.getElementById(
+                    "adminName"
+                );
+
+
+            const emailElement =
+                document.getElementById(
+                    "adminEmail"
+                );
+
+
+            if (nameElement) {
+
+                nameElement.textContent =
+                    name ||
+                    "Administrator";
+
+            }
+
+
+            if (emailElement) {
+
+                emailElement.textContent =
+                    email;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD PATIENTS
+===================================================== */
+
+async function loadPatients(
+    search = ""
+) {
+
+    const body =
+        document.getElementById(
+            "patientsBody"
+        );
+
+
+    body.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="6"
+                class="loading-row"
+            >
+
+                Loading patients...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        let url =
+            "/patients";
+
+
+        if (search) {
+
+            url +=
+                "?search=" +
+                encodeURIComponent(
+                    search
+                );
+
+        }
+
+
+        const data =
+            await api(url);
+
+
+        allPatients =
+            Array.isArray(
+                data.patients
+            )
+                ? data.patients
+                : [];
+
+
+        renderPatients(
+            allPatients
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Patient loading error:",
+            error
+        );
+
+
+        if (
+            error.message ===
+            "AUTH_EXPIRED"
+        ) {
+
+            return;
+
+        }
+
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="error-row"
+                >
+
+                    ${escapeHTML(
+                        error.message ||
+                        "Unable to load patients."
+                    )}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER PATIENTS
+===================================================== */
+
+function renderPatients(
+    patients
+) {
+
+    const body =
+        document.getElementById(
+            "patientsBody"
+        );
+
+
+    const count =
+        document.getElementById(
+            "patientCount"
+        );
+
+
+    count.textContent =
+        `All Patients (${patients.length})`;
+
+
+    if (!patients.length) {
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="empty-row"
+                >
+
+                    No patients found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        patients.map(
+            patient => {
+
+                return `
+
+                    <tr>
+
+                        <!-- NAME -->
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                patient.pname ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <!-- NIC -->
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                patient.pnic ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <!-- TELEPHONE -->
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                patient.ptel ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <!-- EMAIL -->
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                patient.pemail ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <!-- DOB -->
+
+                        <td class="table-data">
+
+                            ${escapeHTML(
+                                formatDate(
+                                    patient.pdob
+                                )
+                            )}
+
+                        </td>
+
+
+                        <!-- EVENTS -->
+
+                        <td class="table-data patient-actions">
+
+                            <button
+                                type="button"
+                                class="login-btn btn-primary-soft btn"
+                                onclick="viewPatient(${Number(
+                                    patient.pid
+                                )})"
+                            >
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   VIEW PATIENT
+===================================================== */
+
+async function viewPatient(pid) {
+    if (!pid) {
+        alert("Invalid patient ID.");
+        return;
+    }
+
+    const patient = allPatients.find(
+        p => Number(p.pid) === Number(pid)
+    );
+
+    if (!patient) {
+        alert("Patient details not found.");
+        return;
+    }
+
+    alert(
+        "Patient Details\n\n" +
+        "Name: " + (patient.pname || "-") +
+        "\nEmail: " + (patient.pemail || "-") +
+        "\nNIC: " + (patient.pnic || "-") +
+        "\nTelephone: " + (patient.ptel || "-") +
+        "\nDate of Birth: " + formatDate(patient.pdob) +
+        "\nAddress: " + (patient.paddress || "-")
+    );
+}
+
+
+/* =====================================================
+   SEARCH FORM
+===================================================== */
+
+document
+    .getElementById(
+        "searchForm"
+    )
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const search =
+                document.getElementById(
+                    "searchInput"
+                ).value.trim();
+
+
+            loadPatients(
+                search
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+document
+    .getElementById(
+        "logoutButton"
+    )
+    .addEventListener(
+        "click",
+        logout
+    );
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function init() {
+
+    if (!token) {
+
+        return;
+
+    }
+
+
+    setTodayDate();
+
+    await loadProfile();
+
+    await loadPatients();
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>

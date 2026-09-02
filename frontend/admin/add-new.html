@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/animations.css">
+<link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../css/admin.css">
+<title>Add Doctor</title>
+<style>
+    .popup{animation:transitionIn-Y-bottom .5s}
+    .form-card{max-width:760px;margin:30px auto;padding:30px;background:#fff;border-radius:12px;box-shadow:0 3px 15px rgba(0,0,0,.06)}
+    .form-row{display:flex;gap:20px;margin-bottom:18px}
+    .form-group{flex:1}
+    .form-group label{display:block;margin-bottom:7px;font-size:14px;font-weight:600}
+    .form-group input,.form-group select{width:100%;box-sizing:border-box}
+    .message{display:none;margin:15px 0;padding:12px;border-radius:8px;text-align:center}
+    .success{background:#e9f8ef;color:#177245}.error{background:#fff0f0;color:#c62828}
+    @media(max-width:700px){.form-row{display:block}.form-group{margin-bottom:18px}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="menu">
+<table class="menu-container" border="0">
+<tr><td style="padding:10px" colspan="2"><table border="0" class="profile-container">
+<tr><td width="30%" style="padding-left:20px"><img src="../img/user.png" alt="" width="100%" style="border-radius:50%"></td>
+<td style="padding:0"><p class="profile-title" id="adminName">Administrator</p><p class="profile-subtitle" id="adminEmail"></p></td></tr>
+<tr><td colspan="2"><input type="button" value="Log out" id="logoutBtn" class="logout-btn btn-primary-soft btn"></td></tr>
+</table></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-dashbord"><a href="index.html" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></div></a></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-doctor menu-active menu-icon-doctor-active"><a href="doctors.html" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Doctors</p></div></a></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-schedule"><a href="schedule.html" class="non-style-link-menu"><div><p class="menu-text">Schedule</p></div></a></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-appoinment"><a href="appointment.html" class="non-style-link-menu"><div><p class="menu-text">Appointment</p></div></a></td></tr>
+<tr class="menu-row"><td class="menu-btn menu-icon-patient"><a href="patient.html" class="non-style-link-menu"><div><p class="menu-text">Patients</p></div></a></td></tr>
+</table>
+</div>
+
+<div class="dash-body">
+<table border="0" width="100%" style="border-spacing:0;margin:0;padding:0;margin-top:25px">
+<tr>
+<td width="13%"><a href="doctors.html"><button class="login-btn btn-primary-soft btn btn-icon-back" style="padding:11px;margin-left:20px;width:125px">Back</button></a></td>
+<td><p style="font-size:23px;padding-left:12px;font-weight:600">Add New Doctor</p></td>
+<td width="15%"><p style="font-size:14px;color:#777;padding:0;margin:0;text-align:right">Today's Date</p><p class="heading-sub12" id="todayDate" style="padding:0;margin:0;text-align:right"></p></td>
+<td width="10%"><button class="btn-label" style="display:flex;justify-content:center;align-items:center"><img src="../img/calendar.svg" width="100%"></button></td>
+</tr>
+<tr><td colspan="4"><div class="form-card">
+<h2 style="margin-top:0">Doctor Account</h2>
+<p style="color:#777">Create the doctor's real login account. The password is stored as a bcrypt hash by the backend.</p>
+<div id="message" class="message"></div>
+<form id="doctorForm">
+<div class="form-row">
+<div class="form-group"><label for="docname">Doctor Name *</label><input id="docname" name="docname" class="input-text" type="text" required></div>
+<div class="form-group"><label for="docemail">Email *</label><input id="docemail" name="docemail" class="input-text" type="email" required></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="password">Password *</label><input id="password" name="password" class="input-text" type="password" minlength="6" required></div>
+<div class="form-group"><label for="specialties">Specialty</label><select id="specialties" name="specialties" class="input-text"><option value="">No specialty</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="docnic">NIC</label><input id="docnic" name="docnic" class="input-text" type="text"></div>
+<div class="form-group"><label for="doctel">Telephone</label><input id="doctel" name="doctel" class="input-text" type="text"></div>
+</div>
+<div style="text-align:center;margin-top:25px"><button id="submitBtn" type="submit" class="login-btn btn-primary btn" style="padding:14px 35px">Create Doctor</button></div>
+</form>
+</div></td></tr>
+</table>
+</div>
+</div>
+<script>
+const API='http://localhost:5000/api/admin';
+const token=localStorage.getItem('token');
+const role=localStorage.getItem('userRole');
+function logout(){localStorage.clear();location.href='../login.html'}
+function authHeaders(json=false){const h={Authorization:'Bearer '+token};if(json)h['Content-Type']='application/json';return h}
+function expired(data){if(data && (data.message==='Invalid or expired token.'||data.message==='Access denied. Please login.')){logout();return true}return false}
+if(!token || (role && role!=='a')) logout();
+const today=new Date();document.getElementById('todayDate').textContent=today.toLocaleDateString('en-IN',{day:'2-digit',month:'2-digit',year:'numeric'});
+async function loadAdmin(){try{const r=await fetch(API+'/profile',{headers:authHeaders()});const d=await r.json();if(r.status===401||r.status===403){logout();return}if(d.success){document.getElementById('adminEmail').textContent=d.admin.aemail||''}}catch(e){console.error(e)}}
+async function loadSpecialties(){try{const r=await fetch(API+'/specialties',{headers:authHeaders()});const d=await r.json();if(r.status===401||r.status===403){logout();return}if(!d.success)return;const select=document.getElementById('specialties');d.specialties.forEach(s=>{const o=document.createElement('option');o.value=s.id;o.textContent=s.sname;select.appendChild(o)})}catch(e){console.error('Specialties error:',e)}}
+function showMessage(text,type){const box=document.getElementById('message');box.textContent=text;box.className='message '+type;box.style.display='block'}
+document.getElementById('doctorForm').addEventListener('submit',async e=>{e.preventDefault();const btn=document.getElementById('submitBtn');const body={docname:document.getElementById('docname').value.trim(),docemail:document.getElementById('docemail').value.trim(),password:document.getElementById('password').value,docnic:document.getElementById('docnic').value.trim(),doctel:document.getElementById('doctel').value.trim(),specialties:document.getElementById('specialties').value};if(!body.docname||!body.docemail||!body.password){showMessage('Name, email and password are required.','error');return}btn.disabled=true;btn.textContent='Creating...';try{const r=await fetch(API+'/doctors',{method:'POST',headers:authHeaders(true),body:JSON.stringify(body)});const d=await r.json();if(r.status===401||r.status===403){logout();return}if(!r.ok||!d.success){showMessage(d.message||'Unable to create doctor.','error');btn.disabled=false;btn.textContent='Create Doctor';return}showMessage('Doctor created successfully. Doctor can now log in with this email and password.','success');document.getElementById('doctorForm').reset();}catch(err){console.error(err);showMessage('Unable to connect to the server.','error')}finally{btn.disabled=false;btn.textContent='Create Doctor'}});
+document.getElementById('logoutBtn').addEventListener('click',logout);
+loadAdmin();loadSpecialties();
+</script>
+<script src="admin-common.js"></script>
+</body>
+</html>

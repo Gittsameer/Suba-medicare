@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>My Sessions</title>
+
+    <style>
+
+        #formRow {
+            display: none;
+        }
+
+        .session-form {
+            width: 90%;
+            padding: 25px;
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+        .session-form-fields {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .session-form-fields .input-text {
+            min-width: 170px;
+        }
+
+        .session-actions {
+            white-space: nowrap;
+        }
+
+        .session-actions button {
+            margin: 2px;
+        }
+
+        .loading-row,
+        .empty-row,
+        .error-row {
+            text-align: center;
+            padding: 25px !important;
+        }
+
+        .error-row {
+            color: #ff5050;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =====================================================
+         LEFT MENU
+         ===================================================== -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+
+                <td colspan="2" style="padding:10px">
+
+                    <table class="profile-container" border="0">
+
+                        <tr>
+
+                            <td width="30%" style="padding-left:20px">
+
+                                <img
+                                    src="../img/user.png"
+                                    alt="Doctor"
+                                    width="100%"
+                                    style="border-radius:50%"
+                                >
+
+                            </td>
+
+                            <td style="padding:0">
+
+                                <p
+                                    class="profile-title"
+                                    id="profileName">
+                                    Loading...
+                                </p>
+
+                                <p
+                                    class="profile-subtitle"
+                                    id="profileEmail">
+                                    Loading...
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn"
+                                >
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Dashboard -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-dashbord">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Dashboard
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Appointments -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                My Appointments
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Sessions -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-session menu-active menu-icon-session-active">
+
+                    <a
+                        href="schedule.html"
+                        class="non-style-link-menu non-style-link-menu-active">
+
+                        <div>
+
+                            <p class="menu-text">
+                                My Sessions
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Patients -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-patient">
+
+                    <a
+                        href="patient.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                My Patients
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Settings -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-settings">
+
+                    <a
+                        href="settings.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Settings
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <div
+        class="dash-body"
+        style="margin-top:15px">
+
+        <table
+            border="0"
+            width="100%"
+            style="
+                border-spacing:0;
+                margin:0;
+                padding:0;
+            ">
+
+
+            <!-- HEADER -->
+
+            <tr>
+
+                <td width="13%">
+
+                    <a href="index.html">
+
+                        <button
+                            class="login-btn btn-primary-soft btn btn-icon-back"
+                            style="
+                                padding:11px;
+                                margin-left:20px;
+                                width:125px;
+                            ">
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+                <td>
+
+                    <p
+                        style="
+                            font-size:23px;
+                            padding-left:12px;
+                            font-weight:600;
+                        ">
+
+                        My Sessions
+
+                    </p>
+
+                </td>
+
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:#777;
+                            text-align:right;
+                            margin:0;
+                        ">
+
+                        Today's Date
+
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="
+                            text-align:right;
+                            margin:0;
+                        ">
+                    </p>
+
+                </td>
+
+
+                <td width="10%">
+
+                    <button class="btn-label">
+
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%"
+                            alt="Calendar"
+                        >
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- ADD SESSION -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <div
+                        style="
+                            display:flex;
+                            margin:25px 45px 10px;
+                        ">
+
+                        <button
+                            id="addSessionBtn"
+                            class="login-btn btn-primary btn"
+                            style="
+                                padding:12px 25px;
+                            ">
+
+                            Add Session
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+            <!-- SESSION FORM -->
+
+            <tr id="formRow">
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div class="filter-container session-form">
+
+                            <form id="sessionForm">
+
+                                <input
+                                    type="hidden"
+                                    id="scheduleid"
+                                >
+
+
+                                <div class="session-form-fields">
+
+                                    <input
+                                        id="title"
+                                        class="input-text"
+                                        placeholder="Session Title"
+                                        required
+                                    >
+
+
+                                    <input
+                                        id="scheduledate"
+                                        type="date"
+                                        class="input-text"
+                                        required
+                                    >
+
+
+                                    <input
+                                        id="scheduletime"
+                                        type="time"
+                                        class="input-text"
+                                        required
+                                    >
+
+
+                                    <input
+                                        id="nop"
+                                        type="number"
+                                        min="1"
+                                        class="input-text"
+                                        placeholder="Max bookings"
+                                        required
+                                    >
+
+
+                                    <button
+                                        class="btn-primary btn"
+                                        type="submit">
+
+                                        Save
+
+                                    </button>
+
+
+                                    <button
+                                        class="btn-primary-soft btn"
+                                        type="button"
+                                        id="cancelForm">
+
+                                        Cancel
+
+                                    </button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+
+            <!-- COUNT -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <p
+                        id="sessionCount"
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:18px;
+                        ">
+
+                        My Sessions (0)
+
+                    </p>
+
+                </td>
+
+            </tr>
+
+
+            <!-- FILTER -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <table
+                            class="filter-container"
+                            border="0">
+
+                            <tr>
+
+                                <td>
+                                    Date:
+                                </td>
+
+
+                                <td width="30%">
+
+                                    <input
+                                        type="date"
+                                        id="filterDate"
+                                        class="input-text filter-container-items"
+                                        style="
+                                            width:95%;
+                                            margin:0;
+                                        "
+                                    >
+
+                                </td>
+
+
+                                <td width="12%">
+
+                                    <button
+                                        id="filterBtn"
+                                        class="btn-primary-soft btn"
+                                        style="
+                                            padding:15px;
+                                            width:100%;
+                                        ">
+
+                                        Filter
+
+                                    </button>
+
+                                </td>
+
+
+                                <td width="12%">
+
+                                    <button
+                                        id="clearBtn"
+                                        class="btn-primary-soft btn"
+                                        style="
+                                            padding:15px;
+                                            width:100%;
+                                        ">
+
+                                        Clear
+
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+
+            <!-- SESSION TABLE -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div class="abc scroll">
+
+                            <table
+                                width="93%"
+                                class="sub-table scrolldown"
+                                border="0">
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="table-headin">
+                                            Session Title
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Scheduled Date & Time
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Max Bookings
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Events
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody id="sessionsBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="4"
+                                            class="loading-row">
+
+                                            Loading...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   CONFIG
+   ===================================================== */
+
+const API_BASE_URL =
+    "http://localhost:5000/api/doctor";
+
+const token =
+    localStorage.getItem("token");
+
+
+/* =====================================================
+   AUTH
+   ===================================================== */
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    window.location.href =
+        "../login.html";
+}
+
+
+if (!token) {
+
+    window.location.href =
+        "../login.html";
+
+}
+
+
+/* =====================================================
+   API
+   ===================================================== */
+
+async function api(endpoint, options = {}) {
+
+    const headers = {
+        Authorization:
+            "Bearer " + token
+    };
+
+
+    if (options.body) {
+
+        headers["Content-Type"] =
+            "application/json";
+
+    }
+
+
+    const response =
+        await fetch(
+            API_BASE_URL + endpoint,
+            {
+                ...options,
+                headers: {
+                    ...headers,
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    let data = {};
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+
+    }
+
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        logout();
+
+        throw new Error(
+            "AUTH_EXPIRED"
+        );
+
+    }
+
+
+    if (!response.ok ||
+        data.success === false) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   DATE
+   ===================================================== */
+
+function setTodayDate() {
+
+    const element =
+        document.getElementById(
+            "todayDate"
+        );
+
+    if (!element) return;
+
+
+    element.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   DATE FORMAT
+   ===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const text =
+        String(value)
+            .substring(0, 10);
+
+
+    const parts =
+        text.split("-");
+
+
+    if (parts.length !== 3) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
+        );
+
+
+    if (isNaN(date.getTime())) {
+        return "-";
+    }
+
+
+    return date.toLocaleDateString(
+        "en-GB"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD DOCTOR PROFILE
+   ===================================================== */
+
+async function loadProfile() {
+
+    try {
+
+        const data =
+            await api("/profile");
+
+
+        const doctor =
+            data.doctor || {};
+
+
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            doctor.docname ||
+            "Doctor";
+
+
+        document.getElementById(
+            "profileEmail"
+        ).textContent =
+            doctor.docemail ||
+            "";
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   SESSION DATA
+   ===================================================== */
+
+let sessions = [];
+
+
+/* =====================================================
+   RENDER SESSIONS
+   ===================================================== */
+
+function renderSessions(list) {
+
+    const body =
+        document.getElementById(
+            "sessionsBody"
+        );
+
+
+    const count =
+        document.getElementById(
+            "sessionCount"
+        );
+
+
+    count.textContent =
+        `My Sessions (${list.length})`;
+
+
+    if (!list.length) {
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    class="empty-row">
+
+                    No sessions found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML =
+        list.map(session => {
+
+            const id =
+                Number(
+                    session.scheduleid
+                );
+
+
+            return `
+
+                <tr>
+
+                    <td class="table-data">
+
+                        ${escapeHTML(
+                            session.title || "-"
+                        )}
+
+                    </td>
+
+
+                    <td class="table-data">
+
+                        ${formatDate(
+                            session.scheduledate
+                        )}
+
+                        <br>
+
+                        ${escapeHTML(
+                            String(
+                                session.scheduletime ||
+                                "-"
+                            ).substring(0, 5)
+                        )}
+
+                    </td>
+
+
+                    <td class="table-data">
+
+                        ${escapeHTML(
+                            session.nop ?? "-"
+                        )}
+
+                    </td>
+
+
+                    <td class="table-data session-actions">
+
+                        <button
+                            class="login-btn btn-primary-soft btn"
+                            data-edit-id="${id}">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="login-btn btn-primary-soft btn"
+                            data-delete-id="${id}">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }).join("");
+
+
+    /* EDIT */
+
+    body.querySelectorAll(
+        "[data-edit-id]"
+    ).forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const id =
+                    Number(
+                        this.dataset.editId
+                    );
+
+
+                const session =
+                    sessions.find(
+                        item =>
+                            Number(
+                                item.scheduleid
+                            ) === id
+                    );
+
+
+                if (session) {
+                    openForm(session);
+                }
+
+            }
+        );
+
+    });
+
+
+    /* DELETE */
+
+    body.querySelectorAll(
+        "[data-delete-id]"
+    ).forEach(button => {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                deleteSession(
+                    Number(
+                        this.dataset.deleteId
+                    )
+                );
+
+            }
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   LOAD SESSIONS
+   ===================================================== */
+
+async function loadSessions() {
+
+    const body =
+        document.getElementById(
+            "sessionsBody"
+        );
+
+
+    body.innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="4"
+                class="loading-row">
+
+                Loading sessions...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        /*
+         * Backend:
+         * GET /api/doctor/schedules
+         *
+         * Response:
+         * {
+         *   success: true,
+         *   schedules: [...]
+         * }
+         */
+
+        const data =
+            await api("/schedules");
+
+
+        sessions =
+            Array.isArray(
+                data.schedules
+            )
+                ? data.schedules
+                : [];
+
+
+        renderSessions(
+            sessions
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Load sessions error:",
+            error
+        );
+
+
+        if (
+            error.message ===
+            "AUTH_EXPIRED"
+        ) {
+
+            return;
+
+        }
+
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    class="error-row">
+
+                    ${escapeHTML(
+                        error.message ||
+                        "Unable to load sessions."
+                    )}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN FORM
+   ===================================================== */
+
+function openForm(session = null) {
+
+    document.getElementById(
+        "formRow"
+    ).style.display =
+        "table-row";
+
+
+    document.getElementById(
+        "scheduleid"
+    ).value =
+        session
+            ? session.scheduleid
+            : "";
+
+
+    document.getElementById(
+        "title"
+    ).value =
+        session
+            ? session.title || ""
+            : "";
+
+
+    document.getElementById(
+        "scheduledate"
+    ).value =
+        session
+            ? String(
+                session.scheduledate || ""
+            ).substring(0, 10)
+            : "";
+
+
+    document.getElementById(
+        "scheduletime"
+    ).value =
+        session
+            ? String(
+                session.scheduletime || ""
+            ).substring(0, 5)
+            : "";
+
+
+    document.getElementById(
+        "nop"
+    ).value =
+        session
+            ? session.nop ?? ""
+            : "";
+
+}
+
+
+/* =====================================================
+   CLOSE FORM
+   ===================================================== */
+
+function closeForm() {
+
+    document.getElementById(
+        "formRow"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "sessionForm"
+    ).reset();
+
+
+    document.getElementById(
+        "scheduleid"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   SAVE SESSION
+   ===================================================== */
+
+async function saveSession(event) {
+
+    event.preventDefault();
+
+
+    const scheduleid =
+        document.getElementById(
+            "scheduleid"
+        ).value;
+
+
+    const title =
+        document.getElementById(
+            "title"
+        ).value.trim();
+
+
+    const scheduledate =
+        document.getElementById(
+            "scheduledate"
+        ).value;
+
+
+    const scheduletime =
+        document.getElementById(
+            "scheduletime"
+        ).value;
+
+
+    const nop =
+        Number(
+            document.getElementById(
+                "nop"
+            ).value
+        );
+
+
+    if (
+        !title ||
+        !scheduledate ||
+        !scheduletime ||
+        !Number.isInteger(nop) ||
+        nop <= 0
+    ) {
+
+        alert(
+            "Please enter all session details correctly."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const endpoint =
+            scheduleid
+                ? `/schedules/${scheduleid}`
+                : "/schedules";
+
+
+        const method =
+            scheduleid
+                ? "PUT"
+                : "POST";
+
+
+        const data =
+            await api(
+                endpoint,
+                {
+                    method,
+
+                    body:
+                        JSON.stringify({
+                            title,
+                            scheduledate,
+                            scheduletime,
+                            nop
+                        })
+                }
+            );
+
+
+        alert(
+            data.message ||
+            "Session saved successfully."
+        );
+
+
+        closeForm();
+
+
+        await loadSessions();
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            alert(
+                error.message ||
+                "Unable to save session."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE SESSION
+   ===================================================== */
+
+async function deleteSession(id) {
+
+    if (!id) {
+        return;
+    }
+
+
+    if (
+        !confirm(
+            "Delete this session?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await api(
+                `/schedules/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        alert(
+            data.message ||
+            "Session deleted successfully."
+        );
+
+
+        await loadSessions();
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            alert(
+                error.message ||
+                "Unable to delete session."
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   FILTER
+   ===================================================== */
+
+function filterSessions() {
+
+    const date =
+        document.getElementById(
+            "filterDate"
+        ).value;
+
+
+    if (!date) {
+
+        renderSessions(
+            sessions
+        );
+
+        return;
+
+    }
+
+
+    const filtered =
+        sessions.filter(
+            session =>
+                String(
+                    session.scheduledate || ""
+                ).substring(0, 10) === date
+        );
+
+
+    renderSessions(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        setTodayDate();
+
+
+        document
+            .getElementById(
+                "logoutButton"
+            )
+            .addEventListener(
+                "click",
+                logout
+            );
+
+
+        document
+            .getElementById(
+                "addSessionBtn"
+            )
+            .addEventListener(
+                "click",
+                () => openForm()
+            );
+
+
+        document
+            .getElementById(
+                "cancelForm"
+            )
+            .addEventListener(
+                "click",
+                closeForm
+            );
+
+
+        document
+            .getElementById(
+                "sessionForm"
+            )
+            .addEventListener(
+                "submit",
+                saveSession
+            );
+
+
+        document
+            .getElementById(
+                "filterBtn"
+            )
+            .addEventListener(
+                "click",
+                filterSessions
+            );
+
+
+        document
+            .getElementById(
+                "clearBtn"
+            )
+            .addEventListener(
+                "click",
+                function () {
+
+                    document.getElementById(
+                        "filterDate"
+                    ).value = "";
+
+
+                    renderSessions(
+                        sessions
+                    );
+
+                }
+            );
+
+
+        await loadProfile();
+
+        await loadSessions();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

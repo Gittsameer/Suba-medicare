@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Doctor Dashboard</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= SIDEBAR ================= -->
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table class="profile-container" border="0">
+
+                        <tr>
+                            <td width="30%" style="padding-left:20px">
+                                <img
+                                    src="../img/user.png"
+                                    alt="Doctor"
+                                    width="100%"
+                                    style="border-radius:50%"
+                                >
+                            </td>
+
+                            <td style="padding:0">
+                                <p class="profile-title" id="profileName">
+                                    Loading...
+                                </p>
+
+                                <p class="profile-subtitle" id="profileEmail">
+                                    Loading...
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+
+                                <!-- FIXED LOGOUT BUTTON -->
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn"
+                                >
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+            <!-- Dashboard -->
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-dashbord menu-active menu-icon-dashbord-active">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu non-style-link-menu-active"
+                    >
+                        <div>
+                            <p class="menu-text">Dashboard</p>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+
+            <!-- Appointments -->
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">My Appointments</p>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+
+            <!-- Sessions -->
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-session">
+
+                    <a
+                        href="schedule.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">My Sessions</p>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+
+            <!-- Patients -->
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-patient">
+
+                    <a
+                        href="patient.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">My Patients</p>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+
+            <!-- Settings -->
+            <tr class="menu-row">
+                <td class="menu-btn menu-icon-settings">
+
+                    <a
+                        href="settings.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">Settings</p>
+                        </div>
+                    </a>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= MAIN DASHBOARD ================= -->
+    <div class="dash-body" style="margin-top:15px">
+
+        <table
+            border="0"
+            width="100%"
+            style="border-spacing:0;margin:0;padding:0"
+        >
+
+            <!-- Header -->
+            <tr>
+
+                <td>
+
+                    <p
+                        style="
+                            font-size:23px;
+                            padding-left:32px;
+                            font-weight:600;
+                        "
+                    >
+                        Dashboard
+                    </p>
+
+                </td>
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:#777;
+                            text-align:right;
+                            margin:0;
+                        "
+                    >
+                        Today's Date
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="
+                            text-align:right;
+                            margin:0;
+                        "
+                    ></p>
+
+                </td>
+
+                <td width="10%">
+
+                    <button
+                        class="btn-label"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        "
+                    >
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%"
+                            alt="Calendar"
+                        >
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Welcome -->
+            <tr>
+
+                <td colspan="3">
+
+                    <center>
+
+                        <table
+                            class="filter-container doctor-header"
+                            style="border:none;width:95%"
+                            border="0"
+                        >
+
+                            <tr>
+
+                                <td>
+
+                                    <h3>
+                                        Welcome,
+                                        <span data-doctor-name>
+                                            Doctor
+                                        </span>
+                                    </h3>
+
+                                    <p>
+                                        View your appointments,
+                                        sessions and patients
+                                        from your dashboard.
+                                    </p>
+
+                                    <a
+                                        href="appointment.html"
+                                        class="non-style-link"
+                                    >
+                                        <button
+                                            class="btn-primary btn"
+                                            style="width:30%"
+                                        >
+                                            View My Appointments
+                                        </button>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Dashboard Content -->
+            <tr>
+
+                <!-- STATUS -->
+                <td colspan="2">
+
+                    <center>
+
+                        <table
+                            class="filter-container"
+                            style="border:none"
+                            border="0"
+                        >
+
+                            <tr>
+
+                                <td colspan="2">
+
+                                    <p
+                                        style="
+                                            font-size:20px;
+                                            font-weight:600;
+                                            padding-left:12px;
+                                        "
+                                    >
+                                        Status
+                                    </p>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- Doctors -->
+                            <tr>
+
+                                <td>
+
+                                    <div
+                                        class="dashboard-items"
+                                        style="
+                                            padding:20px;
+                                            margin:auto;
+                                            width:95%;
+                                            display:flex;
+                                        "
+                                    >
+
+                                        <div>
+
+                                            <div
+                                                class="h1-dashboard"
+                                                id="doctorCount"
+                                            >
+                                                0
+                                            </div>
+
+                                            <br>
+
+                                            <div class="h3-dashboard">
+                                                All Doctors
+                                            </div>
+
+                                        </div>
+
+                                        <div
+                                            class="btn-icon-back dashboard-icons"
+                                            style="
+                                                background-image:url('../img/icons/doctors-hover.svg')
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Patients -->
+                                <td>
+
+                                    <div
+                                        class="dashboard-items"
+                                        style="
+                                            padding:20px;
+                                            margin:auto;
+                                            width:95%;
+                                            display:flex;
+                                        "
+                                    >
+
+                                        <div>
+
+                                            <div
+                                                class="h1-dashboard"
+                                                id="patientCount"
+                                            >
+                                                0
+                                            </div>
+
+                                            <br>
+
+                                            <div class="h3-dashboard">
+                                                All Patients
+                                            </div>
+
+                                        </div>
+
+                                        <div
+                                            class="btn-icon-back dashboard-icons"
+                                            style="
+                                                background-image:url('../img/icons/patients-hover.svg')
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+
+                            <!-- Bookings -->
+                            <tr>
+
+                                <td>
+
+                                    <div
+                                        class="dashboard-items"
+                                        style="
+                                            padding:20px;
+                                            margin:auto;
+                                            width:95%;
+                                            display:flex;
+                                        "
+                                    >
+
+                                        <div>
+
+                                            <div
+                                                class="h1-dashboard"
+                                                id="bookingCount"
+                                            >
+                                                0
+                                            </div>
+
+                                            <br>
+
+                                            <div class="h3-dashboard">
+                                                New Booking
+                                            </div>
+
+                                        </div>
+
+                                        <div
+                                            class="btn-icon-back dashboard-icons"
+                                            style="
+                                                background-image:url('../img/icons/book-hover.svg')
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Sessions -->
+                                <td>
+
+                                    <div
+                                        class="dashboard-items"
+                                        style="
+                                            padding:20px;
+                                            margin:auto;
+                                            width:95%;
+                                            display:flex;
+                                        "
+                                    >
+
+                                        <div>
+
+                                            <div
+                                                class="h1-dashboard"
+                                                id="todaySessionCount"
+                                            >
+                                                0
+                                            </div>
+
+                                            <br>
+
+                                            <div class="h3-dashboard">
+                                                Today Sessions
+                                            </div>
+
+                                        </div>
+
+                                        <div
+                                            class="btn-icon-back dashboard-icons"
+                                            style="
+                                                background-image:url('../img/icons/session-iceblue.svg')
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+                </td>
+
+
+                <!-- UPCOMING SESSIONS -->
+                <td>
+
+                    <p
+                        style="
+                            font-size:20px;
+                            font-weight:600;
+                            padding-left:40px;
+                        "
+                    >
+                        Upcoming Sessions
+                    </p>
+
+                    <center>
+
+                        <div
+                            class="abc scroll"
+                            style="height:250px"
+                        >
+
+                            <table
+                                width="85%"
+                                class="sub-table scrolldown"
+                                border="0"
+                            >
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="table-headin">
+                                            Session Title
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Scheduled Date
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Time
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="upcomingBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="3"
+                                            style="text-align:center"
+                                        >
+                                            Loading...
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const API_BASE_URL =
+    "http://localhost:5000/api/doctor";
+
+const token =
+    localStorage.getItem("token");
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+function logout(event) {
+
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    // Remove all authentication data
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    // Go to login and remove this page from history
+    window.location.replace("../login.html");
+}
+
+
+/* ==========================================
+   AUTH HEADERS
+========================================== */
+
+function authHeaders(json = false) {
+
+    const headers = {
+        "Authorization": "Bearer " + token
+    };
+
+    if (json) {
+        headers["Content-Type"] =
+            "application/json";
+    }
+
+    return headers;
+}
+
+
+/* ==========================================
+   API REQUEST
+========================================== */
+
+async function api(path, options = {}) {
+
+    const response = await fetch(
+        API_BASE_URL + path,
+        {
+            ...options,
+
+            headers: {
+                ...authHeaders(!!options.body),
+                ...(options.headers || {})
+            }
+        }
+    );
+
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch (error) {
+        data = {};
+    }
+
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem("userEmail");
+
+        alert(
+            data.message ||
+            "Session expired. Please login again."
+        );
+
+        window.location.replace(
+            "../login.html"
+        );
+
+        throw new Error("AUTH_EXPIRED");
+    }
+
+
+    if (
+        !response.ok ||
+        data.success === false
+    ) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+    }
+
+
+    return data;
+}
+
+
+/* ==========================================
+   TODAY DATE
+========================================== */
+
+function today() {
+
+    const element =
+        document.getElementById("todayDate");
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+}
+
+
+/* ==========================================
+   FORMAT DATE
+========================================== */
+
+function fmtDate(value) {
+
+    if (!value) {
+        return "N/A";
+    }
+
+    const date =
+        new Date(value);
+
+    if (isNaN(date.getTime())) {
+        return "N/A";
+    }
+
+    return date.toLocaleDateString(
+        "en-GB"
+    );
+}
+
+
+/* ==========================================
+   LOAD PROFILE
+========================================== */
+
+async function loadProfile() {
+
+    try {
+
+        const data =
+            await api("/profile");
+
+        const doctor =
+            data.doctor ||
+            data.user ||
+            data.profile ||
+            {};
+
+        const doctorName =
+            doctor.docname ||
+            doctor.name ||
+            "Doctor";
+
+        const doctorEmail =
+            doctor.docemail ||
+            doctor.email ||
+            "";
+
+
+        const nameElement =
+            document.getElementById(
+                "profileName"
+            );
+
+        const emailElement =
+            document.getElementById(
+                "profileEmail"
+            );
+
+
+        if (nameElement) {
+
+            nameElement.textContent =
+                doctorName;
+        }
+
+
+        if (emailElement) {
+
+            emailElement.textContent =
+                doctorEmail;
+        }
+
+
+        document
+            .querySelectorAll(
+                "[data-doctor-name]"
+            )
+            .forEach(element => {
+
+                element.textContent =
+                    doctorName;
+
+            });
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+        }
+    }
+}
+
+
+/* ==========================================
+   LOAD DASHBOARD STATS
+========================================== */
+
+async function loadDashboard() {
+
+    try {
+
+        const data =
+            await api(
+                "/dashboard-stats"
+            );
+
+
+        const doctorCount =
+            document.getElementById(
+                "doctorCount"
+            );
+
+        const patientCount =
+            document.getElementById(
+                "patientCount"
+            );
+
+        const bookingCount =
+            document.getElementById(
+                "bookingCount"
+            );
+
+        const todaySessionCount =
+            document.getElementById(
+                "todaySessionCount"
+            );
+
+
+        if (doctorCount) {
+
+            doctorCount.textContent =
+                data.doctors ??
+                data.totalDoctors ??
+                0;
+        }
+
+
+        if (patientCount) {
+
+            patientCount.textContent =
+                data.patients ??
+                data.totalPatients ??
+                0;
+        }
+
+
+        if (bookingCount) {
+
+            bookingCount.textContent =
+                data.bookings ??
+                data.newBookings ??
+                0;
+        }
+
+
+        if (todaySessionCount) {
+
+            todaySessionCount.textContent =
+                data.todaySessions ??
+                0;
+        }
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Dashboard error:",
+                error
+            );
+        }
+    }
+}
+
+
+/* ==========================================
+   LOAD UPCOMING SESSIONS
+========================================== */
+
+async function loadUpcomingSessions() {
+
+    const body =
+        document.getElementById(
+            "upcomingBody"
+        );
+
+
+    if (!body) {
+        return;
+    }
+
+
+    try {
+
+        const data =
+            await api(
+                "/upcoming-sessions"
+            );
+
+
+        const sessions =
+            data.sessions ||
+            data.schedules ||
+            data.data ||
+            [];
+
+
+        if (!sessions.length) {
+
+            body.innerHTML = `
+                <tr>
+                    <td
+                        colspan="3"
+                        style="text-align:center"
+                    >
+                        No upcoming sessions
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        body.innerHTML =
+            sessions.map(session => {
+
+                return `
+                    <tr>
+
+                        <td class="table-data">
+                            ${session.title || "-"}
+                        </td>
+
+                        <td class="table-data">
+                            ${fmtDate(
+                                session.scheduledate
+                            )}
+                        </td>
+
+                        <td class="table-data">
+                            ${session.scheduletime || "-"}
+                        </td>
+
+                    </tr>
+                `;
+
+            }).join("");
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Upcoming sessions error:",
+                error
+            );
+
+
+            body.innerHTML = `
+                <tr>
+                    <td
+                        colspan="3"
+                        style="text-align:center"
+                    >
+                        Unable to load sessions
+                    </td>
+                </tr>
+            `;
+        }
+    }
+}
+
+
+/* ==========================================
+   INITIALIZE
+========================================== */
+
+async function init() {
+
+    /*
+       Only token is checked here.
+
+       The previous code checked:
+       userRole !== "d"
+
+       That has been removed because the
+       backend JWT/API already handles
+       doctor authorization.
+    */
+
+    if (!token) {
+
+        window.location.replace(
+            "../login.html"
+        );
+
+        return;
+    }
+
+
+    today();
+
+    await loadProfile();
+
+    await loadDashboard();
+
+    await loadUpcomingSessions();
+}
+
+
+/* ==========================================
+   DOM READY
+========================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+
+        if (logoutButton) {
+
+            logoutButton.addEventListener(
+                "click",
+                logout
+            );
+        }
+
+
+        init();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

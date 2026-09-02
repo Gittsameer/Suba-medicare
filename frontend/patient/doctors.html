@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Doctors</title>
+
+    <style>
+        .popup,
+        .sub-table {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .table-message {
+            padding: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="menu">
+            <table class="menu-container" border="0">
+
+                <tr>
+                    <td style="padding:10px" colspan="2">
+                        <table border="0" class="profile-container">
+                            <tr>
+                                <td width="30%" style="padding-left:20px">
+                                    <img src="../img/user.png" alt="User profile" width="100%" style="border-radius:50%">
+                                </td>
+
+                                <td style="padding:0;margin:0">
+                                    <p class="profile-title" id="patientName">Loading...</p>
+                                    <p class="profile-subtitle" id="patientEmail"></p>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">
+                                    <input
+                                        type="button"
+                                        value="Log out"
+                                        class="logout-btn btn-primary-soft btn"
+                                        id="logoutButton"
+                                    >
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-home">
+                        <a href="index.html" class="non-style-link-menu">
+                            <div><p class="menu-text">Home</p></div>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-doctor menu-active menu-icon-doctor-active">
+                        <a href="doctors.html" class="non-style-link-menu non-style-link-menu-active">
+                            <div><p class="menu-text">All Doctors</p></div>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-session">
+                        <a href="schedule.html" class="non-style-link-menu">
+                            <div><p class="menu-text">Scheduled Sessions</p></div>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-appoinment">
+                        <a href="appointment.html" class="non-style-link-menu">
+                            <div><p class="menu-text">My Bookings</p></div>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-settings">
+                        <a href="settings.html" class="non-style-link-menu">
+                            <div><p class="menu-text">Settings</p></div>
+                        </a>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="dash-body">
+            <table border="0" width="100%" style="border-spacing:0;margin:0;padding:0;margin-top:25px">
+
+                <tr>
+                    <td width="13%">
+                        <a href="doctors.html">
+                            <button class="login-btn btn-primary-soft btn btn-icon-back"
+                                style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px">
+                                <span class="tn-in-text">Back</span>
+                            </button>
+                        </a>
+                    </td>
+
+                    <td>
+                        <form id="doctorSearchForm" class="header-search">
+                            <input
+                                type="search"
+                                id="doctorSearch"
+                                class="input-text header-searchbar"
+                                placeholder="Search Doctor name or Email"
+                            >
+
+                            <button
+                                type="submit"
+                                class="login-btn btn-primary btn"
+                                style="padding:10px 25px"
+                            >
+                                Search
+                            </button>
+                        </form>
+                    </td>
+
+                    <td width="15%">
+                        <p style="font-size:14px;color:rgb(119,119,119);padding:0;margin:0;text-align:right">
+                            Today's Date
+                        </p>
+
+                        <p class="heading-sub12" id="todayDate"
+                            style="padding:0;margin:0;text-align:right">
+                        </p>
+                    </td>
+
+                    <td width="10%">
+                        <button type="button" class="btn-label"
+                            style="display:flex;justify-content:center;align-items:center">
+                            <img src="../img/calendar.svg" alt="Calendar" width="100%">
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" style="padding-top:10px">
+                        <p class="heading-main12" style="margin-left:45px;font-size:18px;color:rgb(49,49,49)">
+                            All Doctors (<span id="doctorCount">0</span>)
+                        </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="4">
+                        <div class="abc scroll">
+                            <table width="93%" class="sub-table scrolldown" border="0" style="margin:auto">
+
+                                <thead>
+                                    <tr>
+                                        <th class="table-headin">Doctor Name</th>
+                                        <th class="table-headin">Email</th>
+                                        <th class="table-headin">Specialties</th>
+                                        <th class="table-headin">Events</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="doctorsTableBody">
+                                    <tr>
+                                        <td colspan="4" class="table-message">
+                                            Loading doctors...
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = "http://localhost:5000/api/auth";
+        const token = localStorage.getItem("token");
+        const userRole = localStorage.getItem("userRole");
+
+        let allDoctors = [];
+
+        function logout() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userRole");
+            localStorage.removeItem("userEmail");
+            window.location.href = "../login.html";
+        }
+
+        function showMessage(message) {
+            document.getElementById("doctorsTableBody").innerHTML = `
+                <tr>
+                    <td colspan="4" class="table-message">
+                        ${message}
+                    </td>
+                </tr>
+            `;
+        }
+
+        async function loadPatientProfile() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/profile`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.status === 401 || response.status === 403) {
+                    logout();
+                    return;
+                }
+
+                if (!response.ok || !data.success) {
+                    return;
+                }
+
+                document.getElementById("patientName").textContent =
+                    data.patient?.pname || "Patient";
+
+                document.getElementById("patientEmail").textContent =
+                    data.patient?.pemail || "";
+
+            } catch (error) {
+                console.error("Profile error:", error);
+            }
+        }
+
+        function renderDoctors(doctors) {
+            const tableBody = document.getElementById("doctorsTableBody");
+
+            document.getElementById("doctorCount").textContent = doctors.length;
+            tableBody.innerHTML = "";
+
+            if (!doctors.length) {
+                showMessage("No doctors found.");
+                return;
+            }
+
+            doctors.forEach((doctor) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td class="table-data">${doctor.docname || "-"}</td>
+                    <td class="table-data">${doctor.docemail || "-"}</td>
+                    <td class="table-data">${doctor.specialty || "Not specified"}</td>
+                    <td class="table-data"></td>
+                `;
+
+                const viewButton = document.createElement("button");
+
+                viewButton.type = "button";
+                viewButton.className = "login-btn btn-primary btn";
+                viewButton.textContent = "View";
+
+                viewButton.addEventListener("click", () => {
+                    localStorage.setItem("selectedDoctorId", doctor.docid);
+                    window.location.href = "schedule.html";
+                });
+
+                row.lastElementChild.appendChild(viewButton);
+                tableBody.appendChild(row);
+            });
+        }
+
+        function filterDoctors() {
+            const searchValue = document
+                .getElementById("doctorSearch")
+                .value
+                .trim()
+                .toLowerCase();
+
+            if (!searchValue) {
+                renderDoctors(allDoctors);
+                return;
+            }
+
+            const filteredDoctors = allDoctors.filter((doctor) => {
+                return (
+                    String(doctor.docname || "").toLowerCase().includes(searchValue) ||
+                    String(doctor.docemail || "").toLowerCase().includes(searchValue) ||
+                    String(doctor.specialty || "").toLowerCase().includes(searchValue)
+                );
+            });
+
+            renderDoctors(filteredDoctors);
+        }
+
+        async function loadDoctors() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/doctors`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.status === 401 || response.status === 403) {
+                    alert(data.message || "Your session has expired. Please log in again.");
+                    logout();
+                    return;
+                }
+
+                if (!response.ok || !data.success) {
+                    showMessage(data.message || "Unable to load doctors.");
+                    return;
+                }
+
+                allDoctors = Array.isArray(data.doctors) ? data.doctors : [];
+                renderDoctors(allDoctors);
+
+            } catch (error) {
+                console.error("Doctors error:", error);
+                showMessage("Unable to connect to the server.");
+            }
+        }
+
+        if (!token || (userRole && userRole !== "p")) {
+            window.location.href = "../login.html";
+        } else {
+            document.getElementById("todayDate").textContent =
+                new Date().toLocaleDateString("en-GB");
+
+            loadPatientProfile();
+            loadDoctors();
+        }
+
+        document.getElementById("doctorSearchForm").addEventListener("submit", (event) => {
+            event.preventDefault();
+            filterDoctors();
+        });
+
+        document.getElementById("doctorSearch").addEventListener("input", filterDoctors);
+
+        document.getElementById("logoutButton").addEventListener("click", logout);
+    </script>
+</body>
+</html>

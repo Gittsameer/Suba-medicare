@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Scheduled Sessions</title>
+
+    <style>
+
+        .sub-table {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .sessions-table {
+            width: 95%;
+            border-spacing: 0;
+            margin: 20px auto;
+        }
+
+        .table-message {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .book-btn {
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ================================================= -->
+    <!-- MENU -->
+    <!-- ================================================= -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+
+            <!-- PROFILE -->
+
+            <tr>
+
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0"
+                           class="profile-container">
+
+                        <tr>
+
+                            <td width="30%"
+                                style="padding-left:20px">
+
+                                <img
+                                    src="../img/user.png"
+                                    alt="User profile"
+                                    width="100%"
+                                    style="border-radius:50%">
+
+                            </td>
+
+
+                            <td style="padding:0;margin:0">
+
+                                <p
+                                    class="profile-title"
+                                    id="profileName">
+
+                                    Loading...
+
+                                </p>
+
+
+                                <p
+                                    class="profile-subtitle"
+                                    id="profileEmail">
+
+                                    Loading...
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- LOGOUT -->
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    class="
+                                        logout-btn
+                                        btn-primary-soft
+                                        btn
+                                    "
+                                    id="logoutButton">
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- HOME -->
+            <!-- ================================================= -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-home">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Home
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- DOCTORS -->
+            <!-- ================================================= -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-doctor">
+
+                    <a
+                        href="doctors.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                All Doctors
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- SCHEDULE -->
+            <!-- ================================================= -->
+
+            <tr class="menu-row">
+
+                <td
+                    class="
+                        menu-btn
+                        menu-icon-session
+                        menu-active
+                        menu-icon-session-active
+                    ">
+
+                    <a
+                        href="schedule.html"
+                        class="
+                            non-style-link-menu
+                            non-style-link-menu-active
+                        ">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Scheduled Sessions
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- BOOKINGS -->
+            <!-- ================================================= -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-appoinment">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                My Bookings
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- SETTINGS -->
+            <!-- ================================================= -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-settings">
+
+                    <a
+                        href="settings.html"
+                        class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Settings
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+
+
+    <!-- ================================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ================================================= -->
+
+    <div class="dash-body">
+
+
+        <table
+            border="0"
+            width="100%"
+            style="
+                border-spacing:0;
+                margin:0;
+                padding:0;
+                margin-top:25px;">
+
+
+            <!-- ================================================= -->
+            <!-- HEADER -->
+            <!-- ================================================= -->
+
+            <tr>
+
+
+                <!-- BACK -->
+
+                <td width="13%">
+
+                    <a href="schedule.html">
+
+                        <button
+                            class="
+                                login-btn
+                                btn-primary-soft
+                                btn
+                                btn-icon-back
+                            "
+                            style="
+                                padding-top:11px;
+                                padding-bottom:11px;
+                                margin-left:20px;
+                                width:125px;">
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+
+                <!-- SEARCH -->
+
+                <td>
+
+                    <form
+                        id="searchForm"
+                        class="header-search">
+
+
+                        <input
+                            type="search"
+                            id="sessionSearch"
+                            class="
+                                input-text
+                                header-searchbar
+                            "
+                            placeholder="
+                                Search doctor, specialty,
+                                session, or date">
+
+
+                        <button
+                            type="submit"
+                            class="
+                                login-btn
+                                btn-primary
+                                btn
+                            "
+                            style="
+                                padding:10px 25px;">
+
+                            Search
+
+                        </button>
+
+
+                    </form>
+
+                </td>
+
+
+
+                <!-- DATE -->
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:rgb(119,119,119);
+                            padding:0;
+                            margin:0;
+                            text-align:right;">
+
+                        Today's Date
+
+                    </p>
+
+
+                    <p
+                        class="heading-sub12"
+                        id="todayDate"
+                        style="
+                            padding:0;
+                            margin:0;
+                            text-align:right;">
+
+                        Loading...
+
+                    </p>
+
+                </td>
+
+
+
+                <!-- CALENDAR -->
+
+                <td width="10%">
+
+                    <button
+                        type="button"
+                        class="btn-label"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;">
+
+                        <img
+                            src="../img/calendar.svg"
+                            alt="Calendar"
+                            width="100%">
+
+                    </button>
+
+                </td>
+
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- SESSION COUNT -->
+            <!-- ================================================= -->
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="padding-top:10px;">
+
+                    <p
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:18px;
+                            color:rgb(49,49,49);">
+
+                        Available Sessions
+                        (<span id="sessionCount">0</span>)
+
+                    </p>
+
+                </td>
+
+            </tr>
+
+
+
+            <!-- ================================================= -->
+            <!-- SESSION TABLE -->
+            <!-- ================================================= -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+
+                        <div
+                            class="abc scroll">
+
+
+                            <table
+                                class="
+                                    sub-table
+                                    scrolldown
+                                    sessions-table
+                                "
+                                border="0">
+
+
+                                <thead>
+
+                                    <tr>
+
+                                        <th class="table-headin">
+                                            Session
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Doctor
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Specialty
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Date &amp; Time
+                                        </th>
+
+                                        <th class="table-headin">
+                                            Action
+                                        </th>
+
+                                    </tr>
+
+                                </thead>
+
+
+                                <tbody
+                                    id="sessionsTableBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="5"
+                                            class="table-message">
+
+                                            Loading sessions...
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================================= -->
+
+<script>
+
+
+// =====================================================
+// API
+// =====================================================
+
+const API_BASE_URL =
+    "http://localhost:5000/api/auth";
+
+
+// =====================================================
+// TOKEN
+// =====================================================
+
+const token =
+    localStorage.getItem("token");
+
+
+// =====================================================
+// VARIABLES
+// =====================================================
+
+let allSessions = [];
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("selectedScheduleId");
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        logout
+    );
+
+
+// =====================================================
+// TOKEN CHECK
+// =====================================================
+
+if (!token) {
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+// =====================================================
+// TODAY DATE
+// =====================================================
+
+function loadTodayDate() {
+
+    const today =
+        new Date();
+
+
+    document
+        .getElementById("todayDate")
+        .textContent =
+        today.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+loadTodayDate();
+
+
+// =====================================================
+// FORMAT DATE
+// =====================================================
+
+function formatDate(value) {
+
+    if (!value) {
+        return "Not available";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return value;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-GB"
+    );
+
+}
+
+
+// =====================================================
+// SHOW MESSAGE
+// =====================================================
+
+function showMessage(message) {
+
+    document
+        .getElementById(
+            "sessionsTableBody"
+        )
+        .innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="table-message">
+
+                    ${message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+}
+
+
+// =====================================================
+// LOAD PATIENT PROFILE
+// =====================================================
+
+async function loadPatientProfile() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/profile`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Patient profile:",
+            data
+        );
+
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            alert(
+                data.message ||
+                "Session expired. Please login again."
+            );
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            document
+                .getElementById(
+                    "profileName"
+                )
+                .textContent =
+                "Patient";
+
+            return;
+
+        }
+
+
+        document
+            .getElementById(
+                "profileName"
+            )
+            .textContent =
+            data.patient?.pname ||
+            "Patient";
+
+
+        document
+            .getElementById(
+                "profileEmail"
+            )
+            .textContent =
+            data.patient?.pemail ||
+            "";
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// RENDER SESSIONS
+// =====================================================
+
+function renderSessions(
+    sessions
+) {
+
+    const tableBody =
+        document.getElementById(
+            "sessionsTableBody"
+        );
+
+
+    document
+        .getElementById(
+            "sessionCount"
+        )
+        .textContent =
+        sessions.length;
+
+
+    tableBody.innerHTML = "";
+
+
+    if (!sessions.length) {
+
+        showMessage(
+            "No scheduled sessions available."
+        );
+
+        return;
+
+    }
+
+
+    sessions.forEach(
+        function (session) {
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            // Session information
+
+            row.innerHTML = `
+
+                <td class="table-data">
+
+                    ${session.title || "-"}
+
+                </td>
+
+
+                <td class="table-data">
+
+                    ${session.docname ||
+                      "Not assigned"}
+
+                </td>
+
+
+                <td class="table-data">
+
+                    ${session.specialty ||
+                      "Not specified"}
+
+                </td>
+
+
+                <td class="table-data">
+
+                    ${formatDate(
+                        session.scheduledate
+                    )}
+
+                    <br>
+
+                    ${session.scheduletime || ""}
+
+                </td>
+
+
+                <td
+                    class="table-data"
+                    id="action-${session.scheduleid}">
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(
+                row
+            );
+
+
+            // =========================================
+            // BOOK BUTTON
+            // =========================================
+
+            const actionCell =
+                document.getElementById(
+                    `action-${session.scheduleid}`
+                );
+
+
+            const bookButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            bookButton.type =
+                "button";
+
+
+            bookButton.className =
+                "login-btn btn-primary btn book-btn";
+
+
+            bookButton.textContent =
+                "Book";
+
+
+            // =========================================
+            // IMPORTANT
+            // =========================================
+            // Actually call booking API
+            // =========================================
+
+            bookButton.addEventListener(
+                "click",
+                function () {
+
+                    bookAppointment(
+                        session.scheduleid,
+                        bookButton
+                    );
+
+                }
+            );
+
+
+            actionCell.appendChild(
+                bookButton
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// BOOK APPOINTMENT
+// =====================================================
+
+async function bookAppointment(
+    scheduleid,
+    button
+) {
+
+
+    // =========================================
+    // TOKEN CHECK
+    // =========================================
+
+    if (!token) {
+
+        alert(
+            "Session expired. Please login again."
+        );
+
+        logout();
+
+        return;
+
+    }
+
+
+    // =========================================
+    // CONFIRM
+    // =========================================
+
+    const confirmed =
+        confirm(
+            "Do you want to book this session?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    // Disable button
+    button.disabled =
+        true;
+
+    button.textContent =
+        "Booking...";
+
+
+    try {
+
+
+        // =====================================
+        // POST BOOKING
+        // =====================================
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/book-appointment`,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    },
+
+
+                    body: JSON.stringify({
+
+                        scheduleid:
+                            scheduleid
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Booking response:",
+            data
+        );
+
+
+        // =====================================
+        // TOKEN EXPIRED
+        // =====================================
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            alert(
+                data.message ||
+                "Session expired. Please login again."
+            );
+
+            logout();
+
+            return;
+
+        }
+
+
+        // =====================================
+        // ALREADY BOOKED
+        // =====================================
+
+        if (
+            response.status === 409 &&
+            data.message ===
+            "You have already booked this session"
+        ) {
+
+            alert(
+                "You have already booked this session."
+            );
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Book";
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SESSION FULL
+        // =====================================
+
+        if (
+            response.status === 409
+        ) {
+
+            alert(
+                data.message ||
+                "This session is fully booked."
+            );
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Book";
+
+            return;
+
+        }
+
+
+        // =====================================
+        // OTHER ERROR
+        // =====================================
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            alert(
+                data.message ||
+                "Unable to book appointment."
+            );
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "Book";
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SUCCESS
+        // =====================================
+
+        alert(
+            "Appointment booked successfully.\n\n" +
+            "Appointment No: " +
+            data.apponum
+        );
+
+
+        // Go to bookings page
+
+        window.location.href =
+            "appointment.html";
+
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Booking error:",
+            error
+        );
+
+
+        alert(
+            "Unable to connect to the server."
+        );
+
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "Book";
+
+    }
+
+}
+
+
+// =====================================================
+// FILTER SESSIONS
+// =====================================================
+
+function filterSessions() {
+
+    const query =
+        document
+            .getElementById(
+                "sessionSearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if (!query) {
+
+        renderSessions(
+            allSessions
+        );
+
+        return;
+
+    }
+
+
+    const filteredSessions =
+        allSessions.filter(
+            function (session) {
+
+                return [
+
+                    session.title,
+                    session.docname,
+                    session.specialty,
+                    session.scheduledate,
+                    session.scheduletime
+
+                ].some(
+                    function (value) {
+
+                        return String(
+                            value || ""
+                        )
+                        .toLowerCase()
+                        .includes(query);
+
+                    }
+                );
+
+            }
+        );
+
+
+    renderSessions(
+        filteredSessions
+    );
+
+}
+
+
+// =====================================================
+// SEARCH
+// =====================================================
+
+document
+    .getElementById(
+        "searchForm"
+    )
+    .addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+            filterSessions();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "sessionSearch"
+    )
+    .addEventListener(
+        "input",
+        filterSessions
+    );
+
+
+// =====================================================
+// LOAD SESSIONS
+// =====================================================
+
+async function loadSessions() {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE_URL}/sessions`,
+                {
+
+                    method: "GET",
+
+                    headers: {
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    }
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Sessions:",
+            data
+        );
+
+
+        // =====================================
+        // TOKEN EXPIRED
+        // =====================================
+
+        if (
+            response.status === 401 ||
+            response.status === 403
+        ) {
+
+            alert(
+                data.message ||
+                "Session expired. Please login again."
+            );
+
+            logout();
+
+            return;
+
+        }
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            showMessage(
+                data.message ||
+                "Unable to load sessions."
+            );
+
+            return;
+
+        }
+
+
+        allSessions =
+            Array.isArray(
+                data.sessions
+            )
+                ? data.sessions
+                : [];
+
+
+        renderSessions(
+            allSessions
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Sessions error:",
+            error
+        );
+
+
+        showMessage(
+            "Unable to connect to the server."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// INITIALIZE
+// =====================================================
+
+async function initializePage() {
+
+    if (!token) {
+
+        window.location.href =
+            "../index.html";
+
+        return;
+
+    }
+
+
+    await loadPatientProfile();
+
+    await loadSessions();
+
+}
+
+
+initializePage();
+
+</script>
+
+
+</body>
+
+</html>

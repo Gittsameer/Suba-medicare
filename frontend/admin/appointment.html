@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <title>Appointments</title>
+
+    <style>
+        .popup {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .sub-table {
+            animation: transitionIn-Y-bottom 0.5s;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .error-message {
+            color: #ff5050;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        .delete-btn {
+            border: none;
+            cursor: pointer;
+            padding: 8px 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         LEFT MENU
+    ========================== -->
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+                <td style="padding:10px" colspan="2">
+
+                    <table border="0" class="profile-container">
+
+                        <tr>
+                            <td width="30%" style="padding-left:20px">
+                                <img
+                                    src="../img/user.png"
+                                    alt=""
+                                    width="100%"
+                                    style="border-radius:50%"
+                                >
+                            </td>
+
+                            <td style="padding:0">
+                                <p class="profile-title" id="adminName">
+                                    Administrator
+                                </p>
+
+                                <p class="profile-subtitle" id="adminEmail">
+                                    admin@edoc.com
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <input
+                                    type="button"
+                                    value="Log out"
+                                    id="logoutButton"
+                                    class="logout-btn btn-primary-soft btn"
+                                >
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+
+            <!-- Dashboard -->
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-dashbord">
+
+                    <a
+                        href="index.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">
+                                Dashboard
+                            </p>
+                        </div>
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Doctors -->
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-doctor">
+
+                    <a
+                        href="doctors.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">
+                                Doctors
+                            </p>
+                        </div>
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Schedule -->
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-schedule">
+
+                    <a
+                        href="schedule.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">
+                                Schedule
+                            </p>
+                        </div>
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Appointment -->
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-appoinment menu-active menu-icon-appoinment-active">
+
+                    <a
+                        href="appointment.html"
+                        class="non-style-link-menu non-style-link-menu-active"
+                    >
+                        <div>
+                            <p class="menu-text">
+                                Appointment
+                            </p>
+                        </div>
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- Patients -->
+            <tr class="menu-row">
+
+                <td class="menu-btn menu-icon-patient">
+
+                    <a
+                        href="patient.html"
+                        class="non-style-link-menu"
+                    >
+                        <div>
+                            <p class="menu-text">
+                                Patients
+                            </p>
+                        </div>
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <div class="dash-body">
+
+        <table
+            border="0"
+            width="100%"
+            style="border-spacing:0;margin:0;padding:0;margin-top:25px;"
+        >
+
+            <!-- HEADER -->
+            <tr>
+
+                <td width="13%">
+
+                    <a href="index.html">
+
+                        <button
+                            class="login-btn btn-primary-soft btn btn-icon-back"
+                            style="
+                                padding-top:11px;
+                                padding-bottom:11px;
+                                margin-left:20px;
+                                width:125px;
+                            "
+                        >
+                            Back
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+                <td>
+
+                    <p
+                        style="
+                            font-size:23px;
+                            padding-left:12px;
+                            font-weight:600;
+                        "
+                    >
+                        Appointment Manager
+                    </p>
+
+                </td>
+
+
+                <td width="15%">
+
+                    <p
+                        style="
+                            font-size:14px;
+                            color:#777;
+                            padding:0;
+                            margin:0;
+                            text-align:right;
+                        "
+                    >
+                        Today's Date
+                    </p>
+
+                    <p
+                        id="todayDate"
+                        class="heading-sub12"
+                        style="padding:0;margin:0;"
+                    ></p>
+
+                </td>
+
+
+                <td width="10%">
+
+                    <button
+                        class="btn-label"
+                        style="
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        "
+                    >
+                        <img
+                            src="../img/calendar.svg"
+                            width="100%"
+                        >
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- COUNT -->
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="padding-top:10px;width:100%;"
+                >
+
+                    <p
+                        id="appointmentCount"
+                        class="heading-main12"
+                        style="
+                            margin-left:45px;
+                            font-size:18px;
+                            color:rgb(49,49,49);
+                        "
+                    >
+                        All Appointments (0)
+                    </p>
+
+                </td>
+
+            </tr>
+
+
+            <!-- FILTER -->
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="padding-top:0;width:100%;"
+                >
+
+                    <center>
+
+                        <table
+                            class="filter-container"
+                            border="0"
+                        >
+
+                            <tr>
+
+                                <td width="10%"></td>
+
+                                <td
+                                    width="5%"
+                                    style="text-align:center;"
+                                >
+                                    Date:
+                                </td>
+
+                                <td width="30%">
+
+                                    <input
+                                        type="date"
+                                        id="dateFilter"
+                                        class="input-text filter-container-items"
+                                        style="
+                                            margin:0;
+                                            width:95%;
+                                        "
+                                    >
+
+                                </td>
+
+
+                                <td width="12%">
+
+                                    <button
+                                        type="button"
+                                        id="filterButton"
+                                        class="btn-primary-soft btn button-icon btn-filter"
+                                        style="
+                                            padding:15px;
+                                            margin:0;
+                                            width:100%;
+                                        "
+                                    >
+                                        Filter
+                                    </button>
+
+                                </td>
+
+
+                                <td width="12%">
+
+                                    <button
+                                        type="button"
+                                        id="clearButton"
+                                        class="btn-primary-soft btn"
+                                        style="
+                                            padding:15px;
+                                            margin:0;
+                                            width:100%;
+                                        "
+                                    >
+                                        Clear
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+
+            <!-- APPOINTMENT TABLE -->
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+                        <div class="abc scroll">
+
+                            <table
+                                width="93%"
+                                class="sub-table scrolldown"
+                                border="0"
+                            >
+
+                                <thead>
+
+                                <tr>
+
+                                    <th class="table-headin">
+                                        Patient Name
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Appointment Number
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Doctor
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Session Title
+                                    </th>
+
+                                    <th
+                                        class="table-headin"
+                                        style="font-size:10px"
+                                    >
+                                        Session Date & Time
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Appointment Date
+                                    </th>
+
+                                    <th class="table-headin">
+                                        Events
+                                    </th>
+
+                                </tr>
+
+                                </thead>
+
+
+                                <tbody id="appointmentsBody">
+
+                                    <tr>
+
+                                        <td
+                                            colspan="7"
+                                            class="loading"
+                                        >
+                                            Loading appointments...
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<script src="admin-common.js"></script>
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   API
+===================================================== */
+
+const API_BASE_URL =
+    "http://localhost:5000/api/admin";
+
+const token =
+    localStorage.getItem("token");
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userEmail");
+
+    window.location.href =
+        "../login.html";
+}
+
+
+/* =====================================================
+   AUTH HEADERS
+===================================================== */
+
+function authHeaders(json = false) {
+
+    const headers = {
+        Authorization:
+            "Bearer " + token
+    };
+
+    if (json) {
+
+        headers["Content-Type"] =
+            "application/json";
+    }
+
+    return headers;
+}
+
+
+/* =====================================================
+   API REQUEST
+===================================================== */
+
+async function api(path, options = {}) {
+
+    const response =
+        await fetch(
+            API_BASE_URL + path,
+            {
+                ...options,
+
+                headers: {
+                    ...authHeaders(
+                        !!options.body
+                    ),
+
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    let data = {};
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+    }
+
+
+    if (
+        response.status === 401 ||
+        response.status === 403
+    ) {
+
+        alert(
+            data.message ||
+            "Session expired. Please login again."
+        );
+
+        logout();
+
+        throw new Error(
+            "AUTH_EXPIRED"
+        );
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+    }
+
+
+    if (data.success === false) {
+
+        throw new Error(
+            data.message ||
+            "Request failed"
+        );
+    }
+
+
+    return data;
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =====================================================
+   DATE FORMAT
+===================================================== */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+    const date =
+        new Date(value);
+
+    if (isNaN(date.getTime())) {
+
+        return String(value);
+    }
+
+    return date.toLocaleDateString(
+        "en-GB"
+    );
+}
+
+
+/* =====================================================
+   TIME FORMAT
+===================================================== */
+
+function formatTime(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+    return String(value)
+        .substring(0, 5);
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let allAppointments = [];
+
+
+/* =====================================================
+   TODAY DATE
+===================================================== */
+
+function setTodayDate() {
+
+    const element =
+        document.getElementById(
+            "todayDate"
+        );
+
+    if (!element) return;
+
+    element.textContent =
+        new Date().toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+}
+
+
+/* =====================================================
+   LOAD ADMIN PROFILE
+===================================================== */
+
+async function loadProfile() {
+
+    try {
+
+        const data =
+            await api("/profile");
+
+
+        if (
+            data.admin &&
+            data.admin.aemail
+        ) {
+
+            const email =
+                data.admin.aemail;
+
+            const name =
+                email.split("@")[0];
+
+
+            const nameElement =
+                document.getElementById(
+                    "adminName"
+                );
+
+            const emailElement =
+                document.getElementById(
+                    "adminEmail"
+                );
+
+
+            if (nameElement) {
+
+                nameElement.textContent =
+                    name ||
+                    "Administrator";
+            }
+
+
+            if (emailElement) {
+
+                emailElement.textContent =
+                    email;
+            }
+
+        }
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            console.error(
+                "Profile error:",
+                error
+            );
+        }
+    }
+}
+
+
+/* =====================================================
+   LOAD APPOINTMENTS
+===================================================== */
+
+async function loadAppointments(
+    date = ""
+) {
+
+    const body =
+        document.getElementById(
+            "appointmentsBody"
+        );
+
+
+    body.innerHTML = `
+        <tr>
+            <td colspan="7" class="loading">
+                Loading appointments...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        let url =
+            "/appointments";
+
+
+        if (date) {
+
+            url +=
+                "?date=" +
+                encodeURIComponent(date);
+        }
+
+
+        const data =
+            await api(url);
+
+
+        allAppointments =
+            Array.isArray(
+                data.appointments
+            )
+                ? data.appointments
+                : [];
+
+
+        renderAppointments(
+            allAppointments
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Appointment loading error:",
+            error
+        );
+
+
+        if (
+            error.message ===
+            "AUTH_EXPIRED"
+        ) {
+
+            return;
+        }
+
+
+        body.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    class="error-message"
+                >
+                    ${escapeHtml(
+                        error.message ||
+                        "Unable to load appointments"
+                    )}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER APPOINTMENTS
+===================================================== */
+
+function renderAppointments(
+    appointments
+) {
+
+    const body =
+        document.getElementById(
+            "appointmentsBody"
+        );
+
+
+    const count =
+        document.getElementById(
+            "appointmentCount"
+        );
+
+
+    count.textContent =
+        `All Appointments (${appointments.length})`;
+
+
+    if (!appointments.length) {
+
+        body.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    class="empty-message"
+                >
+                    No appointments found
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    body.innerHTML =
+        appointments.map(
+            appointment => {
+
+                const patientName =
+                    appointment.pname ||
+                    "-";
+
+
+                const doctorName =
+                    appointment.docname ||
+                    "-";
+
+
+                const doctorEmail =
+                    appointment.docemail ||
+                    "";
+
+
+                const sessionTitle =
+                    appointment.title ||
+                    "-";
+
+
+                const sessionDate =
+                    formatDate(
+                        appointment.scheduledate
+                    );
+
+
+                const sessionTime =
+                    formatTime(
+                        appointment.scheduletime
+                    );
+
+
+                const appointmentDate =
+                    formatDate(
+                        appointment.appodate
+                    );
+
+
+                const appointmentNumber =
+                    appointment.apponum ??
+                    "-";
+
+
+                return `
+                    <tr>
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                patientName
+                            )}
+                            ${
+                                appointment.pemail
+                                    ? `
+                                        <br>
+                                        <small>
+                                            ${escapeHtml(
+                                                appointment.pemail
+                                            )}
+                                        </small>
+                                      `
+                                    : ""
+                            }
+                        </td>
+
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                appointmentNumber
+                            )}
+                        </td>
+
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                doctorName
+                            )}
+                            ${
+                                doctorEmail
+                                    ? `
+                                        <br>
+                                        <small>
+                                            ${escapeHtml(
+                                                doctorEmail
+                                            )}
+                                        </small>
+                                      `
+                                    : ""
+                            }
+                        </td>
+
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                sessionTitle
+                            )}
+                        </td>
+
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                sessionDate
+                            )}
+                            <br>
+                            ${escapeHtml(
+                                sessionTime
+                            )}
+                        </td>
+
+
+                        <td class="table-data">
+                            ${escapeHtml(
+                                appointmentDate
+                            )}
+                        </td>
+
+
+                        <td class="table-data">
+
+                            <button
+                                type="button"
+                                class="login-btn btn-primary-soft btn delete-btn"
+                                onclick="deleteAppointment(${Number(
+                                    appointment.appoid
+                                )})"
+                            >
+                                Delete
+                            </button>
+
+                        </td>
+
+                    </tr>
+                `;
+            }
+        ).join("");
+}
+
+
+/* =====================================================
+   DELETE APPOINTMENT
+===================================================== */
+
+async function deleteAppointment(
+    appoid
+) {
+
+    if (!appoid) {
+
+        alert(
+            "Invalid appointment ID"
+        );
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this appointment?"
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const data =
+            await api(
+                `/appointments/${appoid}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        alert(
+            data.message ||
+            "Appointment deleted successfully"
+        );
+
+
+        const selectedDate =
+            document.getElementById(
+                "dateFilter"
+            ).value;
+
+
+        await loadAppointments(
+            selectedDate
+        );
+
+
+    } catch (error) {
+
+        if (
+            error.message !==
+            "AUTH_EXPIRED"
+        ) {
+
+            alert(
+                error.message ||
+                "Unable to delete appointment"
+            );
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+document
+    .getElementById("filterButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            const date =
+                document.getElementById(
+                    "dateFilter"
+                ).value;
+
+
+            loadAppointments(
+                date
+            );
+        }
+    );
+
+
+/* =====================================================
+   CLEAR FILTER
+===================================================== */
+
+document
+    .getElementById("clearButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            document.getElementById(
+                "dateFilter"
+            ).value = "";
+
+
+            loadAppointments();
+        }
+    );
+
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        logout
+    );
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+async function init() {
+
+    if (!token) {
+
+        window.location.href =
+            "../login.html";
+
+        return;
+    }
+
+
+    setTodayDate();
+
+    await loadProfile();
+
+    await loadAppointments();
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>

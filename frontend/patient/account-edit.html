@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="../css/animations.css">
+
+    <link rel="stylesheet"
+          href="../css/main.css">
+
+    <link rel="stylesheet"
+          href="../css/admin.css">
+
+    <title>Account Settings</title>
+
+    <style>
+
+        .filter-container {
+            animation: transitionIn-X 0.5s;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- ================= MENU ================= -->
+
+    <div class="menu">
+
+        <table class="menu-container" border="0">
+
+            <tr>
+
+                <td style="padding:10px"
+                    colspan="2">
+
+                    <table border="0"
+                           class="profile-container">
+
+                        <tr>
+
+                            <td width="30%"
+                                style="padding-left:20px">
+
+                                <img src="../img/user.png"
+                                     alt=""
+                                     width="100%"
+                                     style="border-radius:50%">
+
+                            </td>
+
+                            <td style="padding:0">
+
+                                <p class="profile-title">
+                                    Patient
+                                </p>
+
+                                <p class="profile-subtitle">
+                                    Account
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td colspan="2">
+
+                                <a href="../index.html">
+
+                                    <input
+                                        type="button"
+                                        value="Log out"
+                                        class="logout-btn
+                                               btn-primary-soft
+                                               btn">
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                </td>
+
+            </tr>
+
+
+            <!-- HOME -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn
+                           menu-icon-home">
+
+                    <a href="index.html"
+                       class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Home
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- DOCTORS -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn
+                           menu-icon-doctor">
+
+                    <a href="doctors.html"
+                       class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                All Doctors
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- SESSIONS -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn
+                           menu-icon-session">
+
+                    <a href="schedule.html"
+                       class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Scheduled Sessions
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- BOOKINGS -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn
+                           menu-icon-appoinment">
+
+                    <a href="appointment.html"
+                       class="non-style-link-menu">
+
+                        <div>
+
+                            <p class="menu-text">
+                                My Bookings
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+
+            <!-- SETTINGS -->
+
+            <tr class="menu-row">
+
+                <td class="menu-btn
+                           menu-icon-settings
+                           menu-active
+                           menu-icon-settings-active">
+
+                    <a href="settings.html"
+                       class="non-style-link-menu
+                              non-style-link-menu-active">
+
+                        <div>
+
+                            <p class="menu-text">
+                                Settings
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="dash-body"
+         style="margin-top:15px">
+
+
+        <table border="0"
+               width="100%"
+               style="border-spacing:0;
+                      margin:0;
+                      padding:0;">
+
+
+            <!-- HEADER -->
+
+            <tr>
+
+                <td width="13%">
+
+                    <a href="settings.html">
+
+                        <button
+                            class="login-btn
+                                   btn-primary-soft
+                                   btn
+                                   btn-icon-back"
+                            style="padding-top:11px;
+                                   padding-bottom:11px;
+                                   margin-left:20px;
+                                   width:125px">
+
+                            Back
+
+                        </button>
+
+                    </a>
+
+                </td>
+
+
+                <td>
+
+                    <p style="font-size:23px;
+                              padding-left:12px;
+                              font-weight:600;">
+
+                        Account Settings
+
+                    </p>
+
+                </td>
+
+
+                <td width="15%">
+
+                    <p style="font-size:14px;
+                              color:rgb(119,119,119);
+                              padding:0;
+                              margin:0;
+                              text-align:right;">
+
+                        Today's Date
+
+                    </p>
+
+                    <p class="heading-sub12"></p>
+
+                </td>
+
+
+                <td width="10%">
+
+                    <button
+                        class="btn-label"
+                        style="display:flex;
+                               justify-content:center;
+                               align-items:center;">
+
+                        <img src="../img/calendar.svg"
+                             width="100%">
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+
+            <!-- ================= FORM ================= -->
+
+            <tr>
+
+                <td colspan="4">
+
+                    <center>
+
+
+                        <div class="filter-container"
+                             style="width:60%;
+                                    padding:30px;
+                                    margin-top:30px;">
+
+
+                            <p class="header-text">
+                                Edit Account Details
+                            </p>
+
+
+                            <p class="sub-text">
+                                Update your personal information
+                            </p>
+
+
+                            <br>
+
+
+                            <!-- NAME -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    Name:
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pname"
+                                    class="input-text"
+                                    placeholder="Full Name"
+                                    required>
+
+                            </div>
+
+
+                            <br>
+
+
+                            <!-- ADDRESS -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    Address:
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="paddress"
+                                    class="input-text"
+                                    placeholder="Address"
+                                    required>
+
+                            </div>
+
+
+                            <br>
+
+
+                            <!-- NIC -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    NIC:
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pnic"
+                                    class="input-text"
+                                    placeholder="NIC Number"
+                                    required>
+
+                            </div>
+
+
+                            <br>
+
+
+                            <!-- DOB -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    Date of Birth:
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="pdob"
+                                    class="input-text"
+                                    required>
+
+                            </div>
+
+
+                            <br>
+
+
+                            <!-- MOBILE -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    Mobile Number:
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="ptel"
+                                    class="input-text"
+                                    placeholder="Mobile Number"
+                                    required>
+
+                            </div>
+
+
+                            <br>
+
+
+                            <!-- DEPENDENT -->
+
+                            <div style="text-align:left">
+
+                                <label class="form-label">
+                                    Dependent Name:
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="dependentName"
+                                    class="input-text"
+                                    placeholder="Optional">
+
+                            </div>
+
+
+                            <br>
+                            <br>
+
+
+                            <!-- UPDATE -->
+
+                            <button
+                                type="button"
+                                id="updateBtn"
+                                class="login-btn
+                                       btn-primary
+                                       btn">
+
+                                Update Account
+
+                            </button>
+
+
+                            <br>
+                            <br>
+
+
+                            <p id="message"
+                               class="sub-text">
+                            </p>
+
+
+                        </div>
+
+
+                    </center>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+// ============================================
+// TOKEN
+// ============================================
+
+const token =
+    localStorage.getItem("token");
+
+
+if (!token) {
+
+    window.location.href =
+        "../login.html";
+
+}
+
+
+
+// ============================================
+// LOAD ACCOUNT
+// ============================================
+
+async function loadAccount() {
+
+    try {
+
+        const response =
+            await fetch(
+                "http://localhost:5000/api/auth/my-account",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Account:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            document
+                .getElementById("message")
+                .textContent =
+                data.message;
+
+            return;
+
+        }
+
+
+        const patient =
+            data.patient;
+
+
+        document
+            .getElementById("pname")
+            .value =
+            patient.pname || "";
+
+
+        document
+            .getElementById("paddress")
+            .value =
+            patient.paddress || "";
+
+
+        document
+            .getElementById("pnic")
+            .value =
+            patient.pnic || "";
+
+
+        document
+            .getElementById("pdob")
+            .value =
+            patient.pdob
+                ? patient.pdob.substring(0, 10)
+                : "";
+
+
+        document
+            .getElementById("ptel")
+            .value =
+            patient.ptel || "";
+
+
+        // Load dependent separately
+
+        await loadDependent();
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Load account error:",
+            error
+        );
+
+        document
+            .getElementById("message")
+            .textContent =
+            "Unable to load account.";
+
+    }
+
+}
+
+
+
+// ============================================
+// LOAD DEPENDENT
+// ============================================
+
+async function loadDependent() {
+
+    try {
+
+        const response =
+            await fetch(
+                "http://localhost:5000/api/auth/dependents",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Dependents:",
+            data
+        );
+
+
+        const input =
+            document.getElementById(
+                "dependentName"
+            );
+
+
+        if (
+            data.success &&
+            data.dependents &&
+            data.dependents.length > 0
+        ) {
+
+            // Show existing dependent
+
+            input.value =
+                data.dependents[0].dependentname;
+
+        } else {
+
+            // No dependent
+
+            input.value = "";
+
+        }
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Load dependent error:",
+            error
+        );
+
+    }
+
+}
+
+
+
+// ============================================
+// UPDATE ACCOUNT + DEPENDENT
+// ============================================
+
+async function updateAccount() {
+
+
+    const pname =
+        document
+            .getElementById("pname")
+            .value
+            .trim();
+
+
+    const paddress =
+        document
+            .getElementById("paddress")
+            .value
+            .trim();
+
+
+    const pnic =
+        document
+            .getElementById("pnic")
+            .value
+            .trim();
+
+
+    const pdob =
+        document
+            .getElementById("pdob")
+            .value;
+
+
+    const ptel =
+        document
+            .getElementById("ptel")
+            .value
+            .trim();
+
+
+    const dependentname =
+        document
+            .getElementById("dependentName")
+            .value
+            .trim();
+
+
+    const message =
+        document
+            .getElementById("message");
+
+
+
+    // ========================================
+    // VALIDATION
+    // ========================================
+
+    if (
+        !pname ||
+        !paddress ||
+        !pnic ||
+        !pdob ||
+        !ptel
+    ) {
+
+        message.textContent =
+            "Please fill all account fields.";
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        // ====================================
+        // UPDATE PATIENT
+        // ====================================
+
+        const accountResponse =
+            await fetch(
+                "http://localhost:5000/api/auth/update-account",
+                {
+
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    },
+
+                    body: JSON.stringify({
+
+                        pname,
+                        paddress,
+                        pnic,
+                        pdob,
+                        ptel
+
+                    })
+
+                }
+            );
+
+
+        const accountData =
+            await accountResponse.json();
+
+
+        console.log(
+            "Account update:",
+            accountData
+        );
+
+
+        if (!accountData.success) {
+
+            message.textContent =
+                accountData.message;
+
+            return;
+
+        }
+
+
+
+        // ====================================
+        // UPDATE DEPENDENT
+        // ====================================
+
+        const dependentResponse =
+            await fetch(
+                "http://localhost:5000/api/auth/update-dependent",
+                {
+
+                    method: "PUT",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            "Bearer " + token
+
+                    },
+
+                    body: JSON.stringify({
+
+                        dependentname:
+                            dependentname
+
+                    })
+
+                }
+            );
+
+
+        const dependentData =
+            await dependentResponse.json();
+
+
+        console.log(
+            "Dependent update:",
+            dependentData
+        );
+
+
+        if (!dependentData.success) {
+
+            message.textContent =
+                "Account updated, but dependent update failed: "
+                + dependentData.message;
+
+            return;
+
+        }
+
+
+
+        // ====================================
+        // SUCCESS
+        // ====================================
+
+        message.textContent =
+            "Account updated successfully.";
+
+
+        // Keep the new dependent visible.
+        // Do NOT clear the field.
+
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Update account error:",
+            error
+        );
+
+
+        message.textContent =
+            "Unable to update account.";
+
+    }
+
+}
+
+
+
+// ============================================
+// BUTTON
+// ============================================
+
+document
+    .getElementById("updateBtn")
+    .addEventListener(
+        "click",
+        updateAccount
+    );
+
+
+
+// ============================================
+// LOAD PAGE
+// ============================================
+
+loadAccount();
+
+</script>
+
+    <script src="patient-common.js"></script>
+</body>
+
+</html>
